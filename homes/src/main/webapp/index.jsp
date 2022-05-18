@@ -32,7 +32,7 @@ if (session.getAttribute("midx") != null){
 <a>마이페이지</a>
 <a>알림</a>
 <br>
-<a>공지사항nndd</a>
+<a>공지사항nnddddd</a>
 <a>글쓰기</a>
 <a href="<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>">납부현황</a>
 <a href="<%=request.getContextPath()%>/member/memberJoin.do">회원가입</a>
