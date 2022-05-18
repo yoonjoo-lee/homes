@@ -5,6 +5,7 @@
 <%
 ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@ ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 <body>
 <h1>납부현황 임대인</h1>
 
-<table>
+<table border=1>
 <thead>
 <tr>
 <th>세대</th>
@@ -24,13 +25,19 @@ ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 <th>연체횟수</th>
 </tr>
 </thead>
-<% for (MemberVo mv : alist) {%>
+<% 
+for (MemberVo mv : alist) {%>
 <tbody>
 <tr>
-<td><%=mv.getMidx() %></td>
+<td><%=mv.getMidx() %>호</td>
 <td><%=mv.getMembername() %></td>
 <td></td>
-<td></td>
+<td><%
+String[] dayandtime=mv.getEnterdate().split(" ");
+String[] yeartoday = dayandtime[0].split("-");
+%>
+<%=yeartoday[2]%>일
+</td>
 <td></td>
 </tr>
 </tbody>
@@ -38,3 +45,15 @@ ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 </table>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

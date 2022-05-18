@@ -27,7 +27,6 @@ public class MemberController extends HttpServlet {
 		String command = uri.substring(pj.length());
 		System.out.println("command:" + command);
 		if (command.equals("/member/memberJoinAction.do")) {
-			System.out.println("dddd");
 			String memberName = request.getParameter("memberName");
 			String memberPhone = request.getParameter("memberPhone");
 			String memberJumin = request.getParameter("memberJumin");
@@ -120,7 +119,10 @@ public class MemberController extends HttpServlet {
 			session.invalidate();
 			
 			response.sendRedirect(request.getContextPath() + "/");
-		}
+		} else if (command.equals("/member/memberMyPage.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/member/memberMyPage.jsp");
+			rd.forward(request, response);
+		} 
 		
 		
 	}

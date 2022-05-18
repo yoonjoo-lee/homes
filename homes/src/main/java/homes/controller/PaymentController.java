@@ -31,7 +31,8 @@ public class PaymentController extends HttpServlet {
 		if (command.equals("/payment/paymentList.do")) {
 
 			String manager = request.getParameter("manager");
-			
+
+			String midx_ = request.getParameter("midx");
 			
 			if ("Y".equals(manager)) {
 				PaymentDao md = new PaymentDao();
@@ -42,6 +43,13 @@ public class PaymentController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentListManager.jsp");
 				rd.forward(request, response);
 			} else {
+				int midx = Integer.parseInt(midx_);	//int형으로 변환
+				//2. 처리함
+				PaymentDao bd = new PaymentDao();
+				MemberVo pv = bd.paymentSelectOne(midx);
+				
+				request.setAttribute("pv", pv);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentListUser.jsp");
 				rd.forward(request, response);
 			}

@@ -16,10 +16,8 @@ if (session.getAttribute("midx") != null){
 	
 	out.println("<a href='"+ request.getContextPath() + "/member/memberLogout.do'>로그아웃</a><br>");
 }
+out.println(session.getAttribute("midx"));
 %>
-<%
-	//MemberVo mv = (MemberVo)request.getAttribute("mv");
-%>       
 
 <!DOCTYPE html>
 <html>
@@ -29,12 +27,12 @@ if (session.getAttribute("midx") != null){
 <title>Insert title here</title>
 </head>
 <body>
-<a>마이페이지</a>
+<a href="<%=request.getContextPath()%>/member/memberMyPage.do?midx=<%=session.getAttribute("midx")%>">마이페이지</a>
 <a>알림</a>
 <br>
-<a>공지사항nnddddd</a>
+<a>공지사항</a>
 <a>글쓰기</a>
-<a href="<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>">납부현황</a>
+<a href="<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>&midx=<%=session.getAttribute("midx")%>">납부현황</a>
 <a href="<%=request.getContextPath()%>/member/memberJoin.do">회원가입</a>
 <a href="<%=request.getContextPath()%>/member/memberLogin.do">로그인</a>
 </body>
