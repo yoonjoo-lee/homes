@@ -79,6 +79,31 @@ public class MemberDao {
 		 return value;
 	 }
 	 
+	 public int updateMemberMoney(int money, int midx) {
+	 		int value = 0;
+	 		
+	 		String sql = "UPDATE home_member SET money= money + ? WHERE MIDX=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, money);
+				pstmt.setInt(2, midx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+	 		
+	 		return value;
+	 	}
+	 
 	 public MemberVo memberLogin(String memberId, String memberPwd) {
 			System.out.println(memberId +  memberPwd);
 			ResultSet rs = null;
@@ -113,4 +138,95 @@ public class MemberDao {
 			
 			return mv;
 		}
+	 
+	 	public MemberVo memberSelectOne(int midx) {
+			MemberVo pv = null;
+			ResultSet rs = null;
+			
+			String sql = "select * from home_member where midx=?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, midx);
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					pv = new MemberVo();
+					pv.setMidx(rs.getInt("midx"));
+					pv.setMembername(rs.getString("memberName"));
+					pv.setMemberid(rs.getString("memberId"));
+					pv.setMemberpwd(rs.getString("memberPwd"));
+					pv.setMemberemail(rs.getString("memberEmail"));
+					pv.setMemberhouse(rs.getString("memberHouse"));
+					pv.setRoomnumber(rs.getInt("roomNumber"));
+					pv.setDeposit(rs.getInt("deposit"));
+					pv.setRent(rs.getInt("rent"));
+					pv.setEnterdate(rs.getString("enterDate"));
+					pv.setMoney(rs.getInt("money"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return pv;
+		}
+	 	
+	 	public int deleteMember(int midx) {
+			int value = 0;
+			String sql = "UPDATE home_member SET DELYN='Y' WHERE MidX=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, midx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			return value;
+		} 
+	 	
+	 	public int memberChangeId(String memberId, String memberPwd, int midx) {
+			int value = 0;
+			
+			String sql = "UPDATE home_member SET MEMBERID = ? where memberpwd = ? AND midx=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, memberPwd);
+				pstmt.setInt(3, midx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
+			return value;
+		}
+	 	
+	 	
 }

@@ -13,10 +13,10 @@ if (session.getAttribute("midx") == null){
 if (session.getAttribute("midx") != null){
 	out.println("회원 아이디 : " + session.getAttribute("memberId") + "<br>");
 	out.println("회원 이름 : "  + session.getAttribute("memberName") + "<br>");
+	out.println("midx : " + session.getAttribute("midx") + "<br>");
 	
 	out.println("<a href='"+ request.getContextPath() + "/member/memberLogout.do'>로그아웃</a><br>");
 }
-out.println(session.getAttribute("midx"));
 %>
 
 <!DOCTYPE html>

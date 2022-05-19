@@ -1,6 +1,7 @@
 package homes.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import homes.service.MemberDao;
+import homes.service.PaymentDao;
 import homes.domain.MemberVo;
 
  
@@ -120,9 +122,78 @@ public class MemberController extends HttpServlet {
 			
 			response.sendRedirect(request.getContextPath() + "/");
 		} else if (command.equals("/member/memberMyPage.do")) {
+			String midx_ = request.getParameter("midx");
+			System.out.println("마이페이지에서 midx " + midx_);
+			int midx = Integer.parseInt(midx_);
+			
+			MemberDao md = new MemberDao();
+			MemberVo mv = md.memberSelectOne(midx);
+			
+			
+			request.setAttribute("mv", mv);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/member/memberMyPage.jsp");
 			rd.forward(request, response);
-		} 
+		} else if (command.equals("/member/memberChargeAction.do")) {
+			String chargeamount_ = request.getParameter("chargeamount").trim();
+			int chargeamount = Integer.parseInt(chargeamount_);
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			
+			MemberDao md = new MemberDao();
+			int value = md.updateMemberMoney(chargeamount, midx);
+			
+			if (value==1){
+				response.sendRedirect(request.getContextPath()+"/member/memberMyPage.do?midx="+midx);
+			}else{
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
+			
+		} else if (command.equals("/member/memberDeleteAction.do")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			MemberDao md = new MemberDao();
+			int value = md.deleteMember(midx);
+			
+			if (value==1){
+				response.sendRedirect(request.getContextPath()+"/member/memberLogin.do");
+			}else{
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
+		} else if (command.equals("/member/memberChangeId.do")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			//request.setAttribute("midx", midx);
+			
+			MemberDao md = new MemberDao();
+			MemberVo mv = md.memberSelectOne(midx);
+			
+			
+			request.setAttribute("mv", mv);
+			
+			System.out.println("midx"+ midx);
+			RequestDispatcher rd = request.getRequestDispatcher("/member/memberChangeId.jsp");
+			rd.forward(request, response);
+		} else if (command.equals("/member/memberChangeIdAction.do")) {
+			//1. 넘어온 값을 받는다
+			String memberId = request.getParameter("memberId");
+			String memberPwd = request.getParameter("memberPwd");
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+
+			//2. 처리
+			MemberDao md = new MemberDao();
+			int value = md.memberChangeId(memberId, memberPwd, midx);
+			
+			if (value==1){
+				response.sendRedirect(request.getContextPath()+"/member/memberMyPage.do?midx="+ midx);
+			}else{
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
+		}
 		
 		
 	}

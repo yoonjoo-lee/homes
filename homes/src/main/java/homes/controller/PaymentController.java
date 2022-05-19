@@ -53,7 +53,31 @@ public class PaymentController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentListUser.jsp");
 				rd.forward(request, response);
 			}
-		} 
+		} else if (command.equals("/payment/paymentPayAction.do")) {
+			
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			String manager = request.getParameter("manager");
+			
+			
+			PaymentDao pd = new PaymentDao();
+			int value = pd.payMoney(midx);
+			
+			if (value==1){
+				response.sendRedirect(request.getContextPath()+"/payment/paymentList.do?manager="+manager+"&midx="+midx);
+			}else{
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
+			
+		} else if (command.equals("/payment/paymentListUser.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentListUser.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		
+		
 	}
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

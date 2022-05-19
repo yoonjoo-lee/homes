@@ -82,6 +82,8 @@ public class PaymentDao{
 				pv.setDeposit(rs.getInt("deposit"));
 				pv.setRent(rs.getInt("rent"));
 				pv.setEnterdate(rs.getString("enterDate"));
+				pv.setManager(rs.getString("manager"));
+				pv.setMoney(rs.getInt("money"));
 				
 			}
 			
@@ -91,6 +93,30 @@ public class PaymentDao{
 		
 		return pv;
 	}
+	
+	public int payMoney(int midx) {
+ 		int value = 0;
+ 		
+ 		String sql = "UPDATE home_member SET money= money - rent  WHERE MIDX=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, midx);
+			value = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+ 		
+ 		return value;
+ 	}
 	
  
 
