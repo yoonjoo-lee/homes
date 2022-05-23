@@ -193,6 +193,35 @@ public class MemberController extends HttpServlet {
 			}else{
 				response.sendRedirect(request.getContextPath()+"/index.jsp");
 			}
+		}else if (command.equals("/member/memberChangePwd.do")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			
+			MemberDao md = new MemberDao();
+			MemberVo mv = md.memberSelectOne(midx);
+			
+			
+			request.setAttribute("mv", mv);
+			
+			System.out.println("midx"+ midx);
+			RequestDispatcher rd = request.getRequestDispatcher("/member/memberChangePwd.jsp");
+			rd.forward(request, response);
+		} else if (command.equals("/member/memberChangePwdAction.do")) {
+			//1. 넘어온 값을 받는다
+			String memberChangePwd = request.getParameter("memberChangePwd");
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+
+			//2. 처리
+			MemberDao md = new MemberDao();
+			int value = md.memberChangePwd(memberChangePwd, midx);
+			
+			if (value==1){
+				response.sendRedirect(request.getContextPath()+"/member/memberMyPage.do?midx="+ midx);
+			}else{
+				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
 		}
 		
 		

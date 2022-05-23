@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>임차인 로그인</title>
+<link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 <script>
 function check(){
 	var fm = document.frm;
@@ -80,7 +81,11 @@ function check(){
 </head>
 
 <body>
+<header>
 <h1>임차인 로그인</h1>
+</header>
+<nav></nav>
+<section>
 <form name="frm">
 <table>
 <tr>
@@ -123,5 +128,8 @@ function check(){
 </tr>
 </table>
 </form>
+</section>
+<aside></aside>
+<footer></footer>
 </body>
 </html>

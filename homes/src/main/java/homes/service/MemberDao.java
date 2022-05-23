@@ -228,5 +228,31 @@ public class MemberDao {
 			return value;
 		}
 	 	
+	 	public int memberChangePwd(String memberChangePwd, int midx) {
+			int value = 0;
+			
+			String sql = "UPDATE home_member SET memberpwd = ? where midx=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memberChangePwd);
+				pstmt.setInt(2, midx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
+			return value;
+		}
+	 	
 	 	
 }

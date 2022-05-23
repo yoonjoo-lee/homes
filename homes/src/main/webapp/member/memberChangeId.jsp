@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="homes.domain.*" %> 
-<% //String midx = (String)request.getAttribute("midx"); 
-%>
 <%
 	MemberVo mv = (MemberVo)request.getAttribute("mv");
 %>   
@@ -12,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 <script>
 function check(){
 	
@@ -43,7 +42,11 @@ function check(){
 </script>
 </head>
 <body>
+<header>
 <h1>아이디 변경</h1>
+</header>
+<nav></nav>
+<section>
 <form name="frm">
 <table>
 <tr>
@@ -61,5 +64,8 @@ function check(){
 </table>
 <input type="hidden" name="midx" value=<%=mv.getMidx() %>>
 </form>
+</section>
+<aside></aside>
+<footer></footer>
 </body>
 </html>

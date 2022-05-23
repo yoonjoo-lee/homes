@@ -1,0 +1,79 @@
+.demo
+{
+	padding: 100px 0;
+}
+.heading-title
+{
+	margin-bottom: 100px;
+}
+.serviceBox{
+    padding: 80px 30px 80px 68px;
+    float: center;
+    background: #666666;
+/*     background: #f8f8f8; 
+    color: #333;*/
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.serviceBox:hover{
+    background: #0066ff;
+/*     background: #645e9d; */
+    color: #fff;
+}
+
+.serviceBox:after{
+    content: "";
+    display: block;
+    border-top: 500px solid #fff;
+    border-left: 500px solid transparent;
+    margin-top: -55%;
+    margin-left: 100%;
+    opacity: 0;
+    position: absolute;
+    transform: scale(2);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.serviceBox:hover:after{
+    margin-left: 0;
+    opacity: 0.1;
+}
+
+.serviceBox .service-icon{
+    font-size: 50px;
+    color: #645e9d;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    transition:all 0.3s ease-in-out 0s;
+}
+
+.serviceBox:hover .service-icon{
+    color: #fff;
+}
+
+.serviceBox .title{
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-transform: capitalize;
+}
+
+.serviceBox .description{
+    font-size: 15px;
+    color: #a3a3a3;
+    line-height: 25px;
+    margin: 0;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.serviceBox:hover .description{
+    color: #fff;
+}
+
+@media only screen and (max-width: 990px){
+    .serviceBox{ margin-bottom: 15px; }
+}

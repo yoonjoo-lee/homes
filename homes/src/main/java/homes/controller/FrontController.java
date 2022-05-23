@@ -26,11 +26,10 @@ public class FrontController extends HttpServlet {
 		}else if (location.equals("payment")) {
 			PaymentController bc = new PaymentController();
 			bc.doGet(request, response);
+		}else if (location.equals("board")) {
+			BoardController bc = new BoardController();
+			bc.doGet(request, response);
 		}
-//		else if (location.equals("board")) {
-//			BoardController bc = new BoardController();
-//			bc.doGet(request, response);
-//		}
 	}
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

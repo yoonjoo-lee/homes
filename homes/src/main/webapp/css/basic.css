@@ -1,0 +1,31 @@
+@charset "UTF-8";
+html, body { margin: 0; padding: 0; height: 100%}
+header { width: 100%; height: 15%; background: darkgray;}
+nav { width: 15%; height: 70%; float: left; background: lightgray;}
+section { width: 70%; height: 70%; float: left; background: #333333;}
+aside { width: 15%; height: 70%; float: left; background: lightgray;}
+footer { width: 100%; height: 15%; clear: both; background: darkgray;}
+article {margin : 10%; }
+
+/* 버튼 영역 우측 정렬 */
+#btnspace {
+	margin: 10px; 
+	float: right;
+}
+
+/* div영역 테두리 둥글게 */
+div {
+	border-radius: 10%;
+}
+
+#housespace{
+	color: #fff;
+	background: #666666;
+	margin: 10% 12% 0% 12%;
+	text-align: center;
+	padding: 1% 0%;
+	border-radius: 10%;
+}
+#housediv{
+	border-radius: 10%;
+}

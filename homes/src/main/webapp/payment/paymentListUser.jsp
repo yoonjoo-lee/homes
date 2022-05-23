@@ -10,9 +10,14 @@
 <head>
 <meta charset="UTF-8">
 <title>납부현황</title>
+<link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 </head>
 <body>
+<header>
 <h1>납부현황 임차인</h1>
+</header>
+<nav></nav>
+<section>
 <h2><%=pv.getMembername() %> 납부현황</h2>
 <table border=1>
 <tr>
@@ -54,6 +59,10 @@ String[] yeartoday = dayandtime[0].split("-");
 <input type="hidden" name="midx" value=<%=pv.getMidx() %>>
 <input type="hidden" name="manager" value=<%=pv.getManager() %>>
 </form>
+</section>
+<aside></aside>
+<footer></footer>
+
 <script>
 
 //납부하기 클릭 시 함수 실행

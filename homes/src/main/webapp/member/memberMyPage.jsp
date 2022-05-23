@@ -10,17 +10,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 <script src="/jQueryStudy/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<header>
 <h1>마이페이지</h1>
+</header>
+<nav></nav>
+<section>
 <table>
 <tr><td><%=mv.getMemberemail() %><td></tr>
 <tr><td><%=mv.getMembername() %><td></tr>
 <tr><td>아이디 <%=mv.getMemberid() %><td></tr>
+<tr><td>비밀번호 <%=mv.getMemberpwd() %><td></tr>
 <tr><td><%=mv.getMemberhouse() %> <%=mv.getRoomnumber() %>호<td></tr>
 <tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangeId.do?midx=<%=mv.getMidx() %>'">아이디변경<td></tr>
-<tr><td>비밀번호변경<td></tr>
+<tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangePwd.do?midx=<%=mv.getMidx() %>'">비밀번호변경<td></tr>
 <tr><td onClick="outMemberFn()">회원탈퇴<td></tr>
 <tr><td>잔액 <%=mv.getMoney() %>원<td></tr>
 <tr><td onClick="chargeFn()">충전하기<td></tr>
@@ -31,7 +37,9 @@
 <input type="hidden" id="charge" name="chargeamount" value=chargeamount>
 <input type="hidden" name="midx" value=<%=mv.getMidx() %>>
 </form>
-
+</section>
+<aside></aside>
+<footer></footer>
 <script>
 function outMemberFn(){
 	if(confirm("정말 탈퇴하시겠습니까?")){

@@ -11,10 +11,14 @@ ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 </head>
 <body>
+<header>
 <h1>납부현황 임대인</h1>
-
+</header>
+<nav></nav>
+<section>
 <table border=1>
 <thead>
 <tr>
@@ -43,6 +47,9 @@ String[] yeartoday = dayandtime[0].split("-");
 </tbody>
 <% } %>
 </table>
+</section>
+<aside></aside>
+<footer></footer>
 </body>
 </html>
 
