@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import homes.service.BoardDao;
 import homes.service.MemberDao;
 import homes.service.PaymentDao;
+import homes.domain.BoardVo;
 import homes.domain.MemberVo;
 
  
@@ -96,14 +98,29 @@ public class MemberController extends HttpServlet {
 			MemberDao md = new MemberDao();
 			MemberVo mv = md.memberLogin(memberId, memberPwd);
 			
+			
+//			BoardDao bd = new BoardDao();
+//			ArrayList<BoardVo> alist = bd.boardSelectAll();
+//			request.setAttribute("alist", alist);
+			
 			HttpSession session = request.getSession();
 			//3. 이동 
+		
 			if (mv != null) {
 //				response.sendRedirect(request.getContextPath() + "/index.jsp");
 				session.setAttribute("midx", mv.getMidx());
 				session.setAttribute("memberId", mv.getMemberid());
 				session.setAttribute("memberName", mv.getMembername());
 				session.setAttribute("manager", mv.getManager());
+				
+				
+				
+//				session.setAttribute("midx", alist.getBidx());
+//				session.setAttribute("subject", alist.getSubject());
+//				session.setAttribute("writer", alist.getWriter());
+//				session.setAttribute("writeday", alist.getWriteday());
+//				session.setAttribute("level_", alist.getLevel_());
+				
 
 				// 로그인 후 boardWrite.jsp 에서 생성한 saveUrl로 다시 보내기 
 				if (session.getAttribute("saveUrl") != null) {

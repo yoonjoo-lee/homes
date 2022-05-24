@@ -8,8 +8,10 @@
 <link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 <!-- bootstrap-3.3.2-dist 안에 있는 css 링크 -->
 <%-- <link href="${pageContext.request.contextPath}/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" /> --%>
-<!-- 부트스트랩 웹상에 있는거 연동 -->
+<!-- 부트스트랩 CDN -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- 부트스트랩 아이콘 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script>
 function check(){
 	
@@ -40,7 +42,8 @@ function check(){
 <nav></nav>
 <section>
 <form name="frm">
-<article>
+<div id="login-form">
+<div id="login-input-form">
 <div class="form-floating mb-3">
   <input type="text" class="form-control" name="memberId" id="floatingInput" placeholder="아이디">
   <label for="floatingInput">아이디</label>
@@ -49,11 +52,16 @@ function check(){
   <input type="password" class="form-control" name="memberPwd" id="floatingPassword" placeholder="비밀번호">
   <label for="floatingPassword">비밀번호</label>
 </div>
-<div id="btnspace">
-<input type="button"  class="btn btn-primary mb-3" value="회원가입" onclick="location.href='<%=request.getContextPath()%>/member/memberJoin.do'">
-<input type="button" name="btn"  class="btn btn-primary mb-3" value="로그인" onclick="check();"> 
 </div>
-</article>
+<div id="btnspace">
+<input type="button" id="login-btn" name="btn"  class="btn btn-primary mb-3" value="로그인" onclick="check();"> 
+</div>
+<div id="joinlink">
+<a href="<%=request.getContextPath()%>/member/memberJoin.do"><i class="bi bi-person fs-5" ></i>회원가입</a>
+</div>
+</div>
+<%-- <input type="button"  class="btn btn-primary mb-3" value="회원가입" onclick="location.href='<%=request.getContextPath()%>/member/memberJoin.do'">
+ --%>
 <%-- <table>
 <tr>
 <td><input type="text" name="memberId" placeholder="아이디"></td>

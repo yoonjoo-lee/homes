@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import homes.dbconn.Dbconn;
 import homes.domain.BoardVo;
 import homes.domain.SearchCriteria;
+import homes.domain.MemberVo;
 
 public class BoardDao {
 	Connection conn;
@@ -112,6 +113,41 @@ public class BoardDao {
 			return alist;
 		}
 		
+		public ArrayList<BoardVo> boardSelectAll() {
+			ArrayList<BoardVo> alist = new ArrayList<BoardVo>();
+			ResultSet rs = null;
+			String sql = "select * from home_board where delyn='N' order by midx desc";
+			
+			try{
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				while(rs.next()){
+				
+					BoardVo mv = new BoardVo();
+					mv.setBidx(rs.getInt("bidx"));	//rs에 복사된 bidx를 bv에 옮겨담는다
+					mv.setSubject(rs.getString("subject"));
+					mv.setWriter(rs.getString("writer"));
+					mv.setWriteday(rs.getString("writeday"));
+					mv.setLevel_(rs.getInt("level_"));
+					alist.add(mv);
+					}
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				try{
+					rs.close();
+					pstmt.close();
+					conn.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+			return alist;
+
+		}
 		
 		public int boardTotal(SearchCriteria scri) {
 			int cnt = 0;

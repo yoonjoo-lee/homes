@@ -7,9 +7,9 @@
 	margin-bottom: 100px;
 }
 .serviceBox{
-    padding: 80px 30px 80px 68px;
+    padding: 80px 10px 80px 10px;
     float: center;
-    background: #666666;
+    background: #0066ff;
 /*     background: #f8f8f8; 
     color: #333;*/
     color: #fff;
@@ -19,7 +19,7 @@
 }
 
 .serviceBox:hover{
-    background: #0066ff;
+    background: blue;
 /*     background: #645e9d; */
     color: #fff;
 }
@@ -73,7 +73,10 @@
 .serviceBox:hover .description{
     color: #fff;
 }
-
+.title{
+	/* float: center; */
+	text-align: center;
+}
 @media only screen and (max-width: 990px){
     .serviceBox{ margin-bottom: 15px; }
 }

@@ -12,31 +12,46 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
 <script src="/jQueryStudy/js/jquery-3.6.0.min.js"></script>
+<!-- 부트스트랩 css 링크 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 </head>
 <body>
-<header>
-<h1>마이페이지</h1>
-</header>
+<header></header>
 <nav></nav>
 <section>
-<table>
-<tr><td><%=mv.getMemberemail() %><td></tr>
-<tr><td><%=mv.getMembername() %><td></tr>
-<tr><td>아이디 <%=mv.getMemberid() %><td></tr>
-<tr><td>비밀번호 <%=mv.getMemberpwd() %><td></tr>
-<tr><td><%=mv.getMemberhouse() %> <%=mv.getRoomnumber() %>호<td></tr>
+<div id="left-section">
+<div id="main-form">
+<table class="table table-striped table-hover">
+<thead><tr><td><h4>프로필 변경</h4></td></tr></thead>
+<tbody>
+
 <tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangeId.do?midx=<%=mv.getMidx() %>'">아이디변경<td></tr>
 <tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangePwd.do?midx=<%=mv.getMidx() %>'">비밀번호변경<td></tr>
 <tr><td onClick="outMemberFn()">회원탈퇴<td></tr>
-<tr><td>잔액 <%=mv.getMoney() %>원<td></tr>
 <tr><td onClick="chargeFn()">충전하기<td></tr>
 <tr><td><a href="<%=request.getContextPath()%>/member/memberLogout.do">로그아웃</a><td></tr>
+</tbody>
 </table>
+</div>
 
 <form name='frm'>
 <input type="hidden" id="charge" name="chargeamount" value=chargeamount>
 <input type="hidden" name="midx" value=<%=mv.getMidx() %>>
 </form>
+</div>
+<div id="right-section">
+<div id="myinfo">
+<table class="table table-sm">
+<tr><td><%=mv.getMemberemail() %><td></tr>
+<tr><td><%=mv.getMembername() %><td></tr>
+<tr><td>아이디 <%=mv.getMemberid() %><td></tr>
+<tr><td>비밀번호 <%=mv.getMemberpwd() %><td></tr>
+<tr><td><%=mv.getMemberhouse() %> <%=mv.getRoomnumber() %>호<td></tr>
+<tr><td>잔액 <%=mv.getMoney() %>원<td></tr>
+</table>
+</div>
+</div>
 </section>
 <aside></aside>
 <footer></footer>

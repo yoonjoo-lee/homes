@@ -14,6 +14,9 @@ PageMaker pm = (PageMaker)request.getAttribute("pm");
 
 <title>글목록</title>
 <link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
+<!-- 부트스트랩 css CDN-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 </head>
 <body>
 <header>
@@ -41,9 +44,9 @@ PageMaker pm = (PageMaker)request.getAttribute("pm");
 
 
 
-<table>
+<table class="table table-hover">
 <thead>
-<tr style = "color: green">
+<tr>
 <th>bidx번호</th>
 <th>제목 </th>
 <th>작성자 </th>

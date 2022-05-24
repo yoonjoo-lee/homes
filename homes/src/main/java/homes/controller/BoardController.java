@@ -114,8 +114,7 @@ public class BoardController extends HttpServlet {
 			//이동
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardList.jsp");
 			rd.forward(request, response);			
-		}
-		
+		}  
 		
 		
 	}
