@@ -29,6 +29,9 @@ public class FrontController extends HttpServlet {
 		}else if (location.equals("board")) {
 			BoardController bc = new BoardController();
 			bc.doGet(request, response);
+		}else if (location.equals("main")) {
+			MainController bc = new MainController();
+			bc.doGet(request, response);
 		}
 	}
  

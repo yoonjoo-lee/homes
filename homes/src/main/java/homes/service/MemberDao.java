@@ -122,6 +122,7 @@ public class MemberDao {
 					mv.setMidx(rs.getInt("midx")); //mv에 담겨있는 midx, memberIdm memberName 값을 꺼낸다.
 					mv.setMemberid(rs.getString("memberid"));
 					mv.setMembername(rs.getString("membername"));
+					mv.setMemberemail(rs.getString("memberemail"));
 					mv.setManager(rs.getString("manager"));
 				}
 			} catch (SQLException e) {
@@ -178,6 +179,47 @@ public class MemberDao {
 			
 			return pv;
 		}
+	 	
+//	 	public MemberVo memberSelectOne(String memberId, String memberPwd) {
+//			MemberVo pv = null;
+//			ResultSet rs = null;
+//			
+//			String sql = "select * from home_member where memberId=? and memberPwd=?";
+//			try {
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setString(1, memberId);
+//				pstmt.setString(2, memberPwd);
+//				rs = pstmt.executeQuery();
+//				
+//				if (rs.next()) {
+//					pv = new MemberVo();
+//					pv.setMidx(rs.getInt("midx"));
+//					pv.setMembername(rs.getString("memberName"));
+//					pv.setMemberid(rs.getString("memberId"));
+//					pv.setMemberpwd(rs.getString("memberPwd"));
+//					pv.setMemberemail(rs.getString("memberEmail"));
+//					pv.setMemberhouse(rs.getString("memberHouse"));
+//					pv.setRoomnumber(rs.getInt("roomNumber"));
+//					pv.setDeposit(rs.getInt("deposit"));
+//					pv.setRent(rs.getInt("rent"));
+//					pv.setEnterdate(rs.getString("enterDate"));
+//					pv.setMoney(rs.getInt("money"));
+//				}
+//				
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			} finally {
+//				try {
+////					rs.close();
+//					pstmt.close();
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			return pv;
+//		}
 	 	
 	 	public int deleteMember(int midx) {
 			int value = 0;

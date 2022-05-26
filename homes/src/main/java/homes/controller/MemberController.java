@@ -98,10 +98,24 @@ public class MemberController extends HttpServlet {
 			MemberDao md = new MemberDao();
 			MemberVo mv = md.memberLogin(memberId, memberPwd);
 			
-			
 //			BoardDao bd = new BoardDao();
+//
 //			ArrayList<BoardVo> alist = bd.boardSelectAll();
 //			request.setAttribute("alist", alist);
+			
+		
+			
+//			MemberDao mdlogin = new MemberDao();
+//			MemberVo mvlogin = md.memberSelectOne(memberId, memberPwd);
+//			
+//			
+//			request.setAttribute("mvlogin", mvlogin);
+//			
+//			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+//			rd.forward(request, response);
+			
+			
+			
 			
 			HttpSession session = request.getSession();
 			//3. 이동 
@@ -112,19 +126,14 @@ public class MemberController extends HttpServlet {
 				session.setAttribute("memberId", mv.getMemberid());
 				session.setAttribute("memberName", mv.getMembername());
 				session.setAttribute("manager", mv.getManager());
+				session.setAttribute("memberEmail", mv.getMemberemail());
 				
-				
-				
-//				session.setAttribute("midx", alist.getBidx());
-//				session.setAttribute("subject", alist.getSubject());
-//				session.setAttribute("writer", alist.getWriter());
-//				session.setAttribute("writeday", alist.getWriteday());
-//				session.setAttribute("level_", alist.getLevel_());
 				
 
 				// 로그인 후 boardWrite.jsp 에서 생성한 saveUrl로 다시 보내기 
 				if (session.getAttribute("saveUrl") != null) {
-					response.sendRedirect((String)session.getAttribute("saveUrl"));
+//					response.sendRedirect((String)session.getAttribute("saveUrl"));
+					response.sendRedirect(request.getContextPath() + "/main.jsp");
 				}else {
 					response.sendRedirect(request.getContextPath() + "/member/memberLogin.do");
 					
@@ -134,10 +143,18 @@ public class MemberController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/member/memberLogin.do");
 			}
 		} else if (command.equals("/member/memberLogout.do")) {
+//			BoardDao bd = new BoardDao();
+//
+//			ArrayList<BoardVo> alist = bd.boardSelectAll();
+//			request.setAttribute("alist", alist);
+//			
+//			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+//			rd.forward(request, response);
+			
 			HttpSession session = request.getSession();
 			session.invalidate();
 			
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/main.jsp");
 		} else if (command.equals("/member/memberMyPage.do")) {
 			String midx_ = request.getParameter("midx");
 			System.out.println("마이페이지에서 midx " + midx_);

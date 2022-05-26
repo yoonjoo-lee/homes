@@ -1,12 +1,18 @@
 package homes.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +81,7 @@ public class BoardController extends HttpServlet {
 			int value = bd.insertBoard(subject, content, writer, ip, midx, fileName);
 			
 			if(value == 1 ) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				response.sendRedirect(request.getContextPath() + "/main.jsp");
 			}else {
 				response.sendRedirect(request.getContextPath() + "/board/boardWrite.do");
 			}
@@ -114,7 +120,106 @@ public class BoardController extends HttpServlet {
 			//이동
 			RequestDispatcher rd = request.getRequestDispatcher("/board/boardList.jsp");
 			rd.forward(request, response);			
-		}  
+		}  else if (command.equals("/board/boardContent.do")) {
+			System.out.println("내용보기 들어왔음");
+			//1. 파라미터가 넘어옴
+			String bidx = request.getParameter("bidx");
+			int bidx_ = Integer.parseInt(bidx);	//int형으로 변환
+			//2. 처리함
+			BoardDao bd = new BoardDao();
+			BoardVo bv = bd.boardSelectOne(bidx_);
+			
+			request.setAttribute("bv", bv);	//내부적으로 자원공유
+			
+			//3. 이동함
+			RequestDispatcher rd = request.getRequestDispatcher("/board/boardContent.jsp");
+			rd.forward(request, response);				
+		}else if (command.equals("/board/boardModify.do")) {
+			System.out.println("내용 수정 들어왔음");
+			
+			//1. 파라미터가 넘어옴
+			String bidx = request.getParameter("bidx");
+			int bidx_ = Integer.parseInt(bidx);	//int형으로 변환
+			//2. 처리함
+			BoardDao bd = new BoardDao();
+			BoardVo bv = bd.boardSelectOne(bidx_);
+			
+			request.setAttribute("bv", bv);	//내부적으로 자원공유
+			
+			//3. 이동함
+			RequestDispatcher rd = request.getRequestDispatcher("/board/boardModify.jsp");
+			rd.forward(request, response);		
+		}else if (command.equals("/board/boardModifyAction.do")) {
+			String subject = request.getParameter("subject");
+			String content = request.getParameter("content");
+			String writer = request.getParameter("writer");
+			String writeday = request.getParameter("writeday");
+			String bidx = request.getParameter("bidx");
+			int bidx_ = Integer.parseInt(bidx);	
+			
+			String ip = InetAddress.getLocalHost().getHostAddress();
+			
+			BoardDao bd = new BoardDao();
+			int value = bd.updateBoard(subject, content, writer, writeday, ip, bidx_);
+			
+			if(value == 1 ) {
+				response.sendRedirect(request.getContextPath() + "/board/boardList.do");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+			}			
+		}else if (command.equals("/board/boardDelete.do")) {
+			String bidx = request.getParameter("bidx");
+			
+			request.setAttribute("bidx", bidx);	//내부적으로 자원공유
+			
+			//3. 이동함
+			RequestDispatcher rd = request.getRequestDispatcher("/board/boardDelete.jsp");
+			rd.forward(request, response);		
+
+		}else if (command.equals("/board/boardDeleteAction.do")) {
+			String bidx = request.getParameter("bidx");
+			int bidx_ = Integer.parseInt(bidx);	//int형으로 변환
+			
+			BoardDao bd = new BoardDao();
+			int value = bd.deleteBoard(bidx_);
+			
+			if(value == 1) {
+				response.sendRedirect(request.getContextPath() + "/board/boardList.do");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+			}
+		}else if (command.equals("/board/fileDownload.do")) {
+			//파일 이름을 넘겨받는다
+			String filename = request.getParameter("filename");
+			//파일의 전체 경로
+			String filePath = saveFullPath + File.separator + filename;
+			
+			
+			//해당위치에 있는 파일을 읽어들인다. 
+			FileInputStream fileInputStream = new FileInputStream(filePath);
+			
+			Path source = Paths.get(filePath);
+			String mimeType = Files.probeContentType(source);
+			//헤더정보에 추출한 파일형식을 담는다.  
+			response.setContentType(mimeType);
+			
+			String sEncoding = new String(filename.getBytes("UTF-8"));
+			//헤더정보에 파일이름을 담는다
+			response.setHeader("Content-Disposition", "attachment;fileName="+sEncoding);
+			
+			//파일쓰기 
+			ServletOutputStream servletOutStream = response.getOutputStream();
+			
+			byte[] b = new byte[4096];
+			int read = 0;
+			while((read = fileInputStream.read(b, 0, b.length)) != -1) {
+				servletOutStream.write(b, 0, read);
+			}
+			
+			servletOutStream.flush();
+			servletOutStream.close();
+			fileInputStream.close();
+		}
 		
 		
 	}

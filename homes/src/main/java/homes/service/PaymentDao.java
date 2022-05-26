@@ -1,5 +1,6 @@
 package homes.service;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,8 @@ import homes.domain.MemberVo;
 import homes.domain.PaymentVo;
 import homes.domain.BoardVo;
 import homes.dbconn.Dbconn;
+
+
  
 @WebServlet("/PaymentDao")
 public class PaymentDao{
@@ -97,7 +100,7 @@ public class PaymentDao{
 	public int payMoney(int midx) {
  		int value = 0;
  		
- 		String sql = "UPDATE home_member SET money= money - rent  WHERE MIDX=?";
+ 		String sql = "UPDATE home_member SET money= money - rent, paymentcount = paymentcount+1 WHERE MIDX=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

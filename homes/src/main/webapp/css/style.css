@@ -10,6 +10,7 @@
     padding: 80px 10px 80px 10px;
     float: center;
     background: #0066ff;
+    border-radius: 10%;
 /*     background: #f8f8f8; 
     color: #333;*/
     color: #fff;
@@ -35,6 +36,7 @@
     position: absolute;
     transform: scale(2);
     transition: all 0.3s ease-in-out 0s;
+    border-radius: 10%;
 }
 
 .serviceBox:hover:after{
@@ -76,6 +78,9 @@
 .title{
 	/* float: center; */
 	text-align: center;
+}
+.row{
+	padding: 20px 0;
 }
 @media only screen and (max-width: 990px){
     .serviceBox{ margin-bottom: 15px; }

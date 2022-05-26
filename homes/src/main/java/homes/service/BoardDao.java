@@ -116,7 +116,7 @@ public class BoardDao {
 		public ArrayList<BoardVo> boardSelectAll() {
 			ArrayList<BoardVo> alist = new ArrayList<BoardVo>();
 			ResultSet rs = null;
-			String sql = "select * from home_board where delyn='N' order by midx desc";
+			String sql = "select * from home_board where delyn='N' AND ROWNUM <= 5 order by midx desc";
 			
 			try{
 				pstmt = conn.prepareStatement(sql);
@@ -185,6 +185,88 @@ public class BoardDao {
 			return cnt;
 		}
 		
+		//boardContent, boardModify에서 게시글 하나의 정보를 출력하기 위해 넘어옴 
+		public BoardVo boardSelectOne(int bidx) {
+			BoardVo bv = null;
+			ResultSet rs = null;
+			
+			String sql = "select * from home_board where bidx=?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bidx);
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					bv = new BoardVo();
+					bv.setBidx(rs.getInt("bidx"));
+					bv.setOriginbidx(rs.getInt("originbidx"));
+					bv.setDepth(rs.getInt("depth_"));
+					bv.setLevel_(rs.getInt("level_"));
+					
+					bv.setSubject(rs.getString("subject"));
+					bv.setContent(rs.getString("content"));
+					bv.setWriter(rs.getString("writer"));
+					bv.setWriteday(rs.getString("writeday"));
+					bv.setFilename(rs.getString("filename"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return bv;
+		}
 		
+		//boardModifyAction에서 게시글 수정을 위해 넘어옴 
+		public int updateBoard(String subject, String content, String writer, String writeday, String ip, int bidx) {
+			int value = 0;
+			String sql="UPDATE home_board SET SUBJECT=?, CONTENT=?, WRITER=?, WRITEDAY=SYSDATE, IP=? WHERE BIDX=?";
+			
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, subject);
+				pstmt.setString(2, content);
+				pstmt.setString(3, writer);
+				pstmt.setString(4, ip);
+				pstmt.setInt(5, bidx);
+				value = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return value;
+		}
+		
+		//boardDeleteAction에서 게시글 삭제를 위해 넘어옴 
+		public int deleteBoard(int bidx) {
+			int value = 0;
+			String sql = "UPDATE home_BOARD SET DELYN='Y' WHERE BIDX=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bidx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			return value;
+		}
 
 }
