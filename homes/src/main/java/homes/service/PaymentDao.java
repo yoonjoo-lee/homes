@@ -31,14 +31,15 @@ public class PaymentDao{
 		this.conn = db.getConnection();
 	}
 	
-	public ArrayList<MemberVo> paymentSelectAll(){
+	public ArrayList<MemberVo> paymentSelectAll(int midx){
 		ArrayList<MemberVo> alist = new ArrayList<MemberVo>();  
 		
 		ResultSet rs = null;
-		String sql = "select * from home_member where delyn='N' AND manager != 'Y' order by midx desc";
+		String sql = "select * from home_member where delyn='N' AND manager != 'Y' AND memberhouse LIKE (SELECT memberhouse FROM home_member WHERE midx=?) order by midx DESC";
 		
 		try{
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, midx);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				MemberVo pv = new MemberVo();
@@ -48,7 +49,7 @@ public class PaymentDao{
 				pv.setMemberid(rs.getString("memberid"));
 				pv.setEnterdate(rs.getString("enterDate"));
 				pv.setExpirationdate(rs.getString("expirationDate"));
-			
+				pv.setPaymentcount(rs.getInt("paymentcount"));
 				
 				alist.add(pv);
 				
@@ -87,6 +88,7 @@ public class PaymentDao{
 				pv.setEnterdate(rs.getString("enterDate"));
 				pv.setManager(rs.getString("manager"));
 				pv.setMoney(rs.getInt("money"));
+				pv.setPaymentcount(rs.getInt("paymentcount"));
 				
 			}
 			

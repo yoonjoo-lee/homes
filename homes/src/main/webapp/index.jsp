@@ -16,19 +16,37 @@ ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
 <!-- <link rel="stylesheet" href="css/basicstyle.css"> -->
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
+<!-- 다크모드 js -->
+<script src="${pageContext.request.contextPath}/js/dayandnight.js"></script>
 <!-- 부트스트랩 css CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 메인 클릭용 스타일 시트 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <!-- 부트스트랩 아이콘 cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script>
+function changebackground(){
+	
+	if($('body').attr('class')=='dark'){
+    	$(".dark").attr("class","light");
+	}else{
+		$(".light").attr("class","dark");
+	}
+	console.log($('body').attr('class'));
+	
+<%session.setAttribute("colormode","Dd");%> 
+};
+</script>
+
 </head>
 
 
-<body>
+<body class="dark">
 
 <!-- 헤더부분 homes 클릭 시 메인 화면으로 이동 -->
 <header>
+<button onclick="changebackground();">배경색변경</button>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0066ff" class="bi bi-house-heart" viewBox="0 0 16 16">
@@ -101,13 +119,24 @@ for(int i = 1; i <= bv.getLevel_(); i++){
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <div class="serviceBox" onclick="location.href = '<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>&midx=<%=session.getAttribute("midx")%>'">
+            <%-- <div class="serviceBox" onclick="location.href = '<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>&midx=<%=session.getAttribute("midx")%>'">--%>
+            <div class="serviceBox" onclick="movetopamentlist();">
                 <h3 class="title">납부현황</h3>
             </div>
         </div>
     </div>
 </div> 
 
+<script>
+//납부현황 클릭시 로그인 검열 후 이동
+function movetopamentlist(){
+	if(<%=session.getAttribute("midx")%>==null){
+		alert("로그인 후 이용해주세요")
+	}else{
+		location.href = '<%=request.getContextPath()%>/payment/paymentList.do?manager=<%=session.getAttribute("manager")%>&midx=<%=session.getAttribute("midx")%>'
+	}
+}
+</script>
 
 
 
@@ -159,24 +188,19 @@ if (session.getAttribute("midx") != null){
 %> 
 </div>
 </div>
+
+<input type="button" id="dnN" value="night" onclick="dayAndNight();">
 </section>
-
-
-
-
-
 <%-- <a href="<%=request.getContextPath()%>/member/memberJoin.do">회원가입</a> --%>
 <%-- <a href="<%=request.getContextPath()%>/member/memberLogin.do">로그인</a> --%>
-
-
-
-
 <%-- <input type="button"  class="btn btn-primary" value="마이페이지" onclick="location.href='<%=request.getContextPath()%>/member/memberMyPage.do?midx=<%=session.getAttribute("midx")%>'">
  --%>
-
-
 <footer>
-<div class="footer_inner"></div>
+<div class="footer_inner">
+</div>
 </footer>
+<script>
+
+</script>
 </body>
 </html>

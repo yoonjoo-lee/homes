@@ -26,6 +26,7 @@ public class MemberVo{
 	private int money;
 	private String memberjoindate;
 	private String manager;
+	private int paymentcount;
 	
 	public int getMidx() {
 		return midx;
@@ -146,6 +147,12 @@ public class MemberVo{
 	}
 	public void setDelyn(String delyn) {
 		this.delyn = delyn;
+	}
+	public int getPaymentcount() {
+		return paymentcount;
+	}
+	public void setPaymentcount(int paymentcount) {
+		this.paymentcount = paymentcount;
 	}
 	private String approval;
 	private String delyn;

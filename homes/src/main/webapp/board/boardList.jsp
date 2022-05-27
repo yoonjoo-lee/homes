@@ -65,7 +65,7 @@ PageMaker pm = (PageMaker)request.getAttribute("pm");
 
 <% for (BoardVo bv : alist) {%>
 <tbody>
-<tr>
+<tr onclick="location.href='<%=request.getContextPath() %>/board/boardContent.do?bidx=<%=bv.getBidx() %>'">
 <td><%=bv.getBidx() %></td>
 <td>
 <%
@@ -76,7 +76,7 @@ for(int i = 1; i <= bv.getLevel_(); i++){
 	}
 }
 %>
-<a href="<%=request.getContextPath() %>/board/boardContent.do?bidx=<%=bv.getBidx() %>"><%=bv.getSubject() %></a>
+<%=bv.getSubject() %>
 </td>
 <td><%=bv.getWriter() %></td>
 <td><%=bv.getWriteday() %></td>

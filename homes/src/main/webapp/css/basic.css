@@ -11,7 +11,9 @@ body, button, input, select, table, textarea {
     color: #202020;
     font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
 }
-
+body.dark{
+	--body-background: #666666;
+}
 header { position: relative; z-index: 2000;  border-bottom: 1px solid #e4e8eb;}
 section { position: relative;
     width: 1130px;
@@ -32,6 +34,7 @@ footer {
     width: 1130px;
     padding: 0 30px 92px;
     margin: 0 auto;
+    color: #e4e8eb;
 }
 #left-section {float: left;
     width: 750px; background: #fff;  border-radius: 0;}
@@ -83,6 +86,16 @@ div {
 	padding: 10% 0 0 0;
 	background-color: #f7f9fa;
     border: 1px solid #dae1e6;
+}
+
+/* 회원가입 테이블 위치 */
+#join-area {
+    margin-left:auto; 
+    margin-right:auto;
+    
+}
+.top {
+  caption-side: top;
 }
 
 #joinlink{

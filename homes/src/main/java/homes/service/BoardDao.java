@@ -116,7 +116,7 @@ public class BoardDao {
 		public ArrayList<BoardVo> boardSelectAll() {
 			ArrayList<BoardVo> alist = new ArrayList<BoardVo>();
 			ResultSet rs = null;
-			String sql = "select * from home_board where delyn='N' AND ROWNUM <= 5 order by midx desc";
+			String sql = "select * from(SELECT * FROM home_board where delyn='N' order by bidx DESC) WHERE ROWNUM <=5";
 			
 			try{
 				pstmt = conn.prepareStatement(sql);

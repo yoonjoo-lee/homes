@@ -90,26 +90,12 @@ window.onload = test();
 </tr>
 <tr>
 <td>납부일자</td>
-<td>
-
-
-<%-- console.log(<%out.println(yeartoday[0]+yeartoday[1]+yeartoday[2]);%>); --%>
-
-<%-- <%String[] dayandtime=pv.getEnterdate().split(" "); 
-String[] yeartoday = dayandtime[0].split("-");
-%> --%>
-매월 <%=yeartoday[2]%>일
-</td>
-</tr>
-<tr>
-<td>잔액</td>
-<td><%=pv.getMoney() %>원</td>
+<td>매월 <%=yeartoday[2]%>일</td>
 </tr>
 </table>
 <table>
 <tr>
 <td>
-<input type="button" name="btn" class="btn btn-primary mb-3" value="납부하기" onClick="payFn()">
 <input type="button" name="btn" class="btn btn-primary mb-3" value="연락하기">
 </td>
 </tr>
@@ -121,72 +107,6 @@ String[] yeartoday = dayandtime[0].split("-");
 </section>
 <footer></footer>
 
-<script>
-
-//납부하기 클릭 시 함수 실행
-function payFn(){
-	if(confirm("월세 "+<%=pv.getRent() %>+"원 납부하시겠습니까?")){
-		//월세금액보다 잔액이 더 클 경우 실행 
-		if(parseInt(<%=pv.getRent() %>) < parseInt(<%=pv.getMoney() %>)){
-			alert(<%=pv.getRent() %>+"원을 납부하였습니다." );
-			
-			var fm = document.frm;
-			
-			fm.action = "<%=request.getContextPath()%>/payment/paymentPayAction.do";
-			fm.method = "post"; 
-			fm.submit();
-			
-			return;
-		}	else{
-			alert("잔액이 부족합니다." );
-		}
-		
-		
-	}else{
-		
-	}
-	
-}
-
-//const date1 = new Date("2021-09-01");
-//const date2 = new Date("2021-10-01");
-   
-
-<%-- console.log(<%out.println(yeartoday[0]+yeartoday[1]+yeartoday[2]);%>);
-let enterdate = <%=(yeartoday[0]+yeartoday[1]+yeartoday[2])%>;
-console.log(enterdate);
-
-var monthdays = [31,28,31,30,31,30,31,31,30,31,30,31];
-var daycount = 0;
-
-console.log("연도", today.getFullYear());
-if (today.getFullYear() != <%=(yeartoday[0])%>){
-	daycount += monthdays[<%=(yeartoday[1])%>-1]-<%=(yeartoday[2])%>;
-	for(var i=<%=(yeartoday[1])%>+1; i<=12; i++){
-		daycount+=monthdays[i-1]
-	}
-	for(var i=1; i<=today.getMonth(); i++){
-		daycount+=monthdays[i-1]
-		console.log(monthdays[i-1]);
-	}
-	daycount+= today.getDate();
-}else{
-	
-}
-
-let tmp=<%=(yeartoday[0])%>;
-tmp = tmp+"-";
-tmp = tmp+<%=(yeartoday[1])%>;
-tmp = tmp+"-";
-tmp = tmp+<%=(yeartoday[2])%>;
-tmp=new Date(tmp);
-console.log(tmp);
-const diffDate = today.getTime() - tmp.getTime();
-  
-const dateDays = Math.abs(diffDate / (1000 * 3600 * 24));
-console.log(daycount);
-document.write(dateDays); --%>
-</script>
 
 </body>
 </html>

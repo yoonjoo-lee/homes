@@ -40,9 +40,13 @@ public class PaymentController extends HttpServlet {
 
 			String midx_ = request.getParameter("midx");
 			
+			
+			
 			if ("Y".equals(manager)) {
+				int midx = Integer.parseInt(midx_);
+				
 				PaymentDao md = new PaymentDao();
-				ArrayList<MemberVo> alist = md.paymentSelectAll();
+				ArrayList<MemberVo> alist = md.paymentSelectAll(midx);
 				
 				request.setAttribute("alist", alist);
 				
@@ -78,6 +82,17 @@ public class PaymentController extends HttpServlet {
 			
 		} else if (command.equals("/payment/paymentListUser.do")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentListUser.jsp");
+			rd.forward(request, response);
+		} else if (command.equals("/payment/paymentContent.do")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			PaymentDao pd = new PaymentDao();
+			MemberVo pv = pd.paymentSelectOne(midx);
+			
+			request.setAttribute("pv", pv);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/payment/paymentContent.jsp");
 			rd.forward(request, response);
 		}
 		

@@ -85,6 +85,8 @@ public class MemberController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/member/memberJoinUser.jsp");
 			rd.forward(request, response);
 		} else if (command.equals("/member/memberLogin.do")) {
+			
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/member/memberLogin.jsp");
 			rd.forward(request, response);
 		} else if(command.equals("/member/memberLoginAction.do")) {

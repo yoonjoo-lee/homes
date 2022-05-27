@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+if (session.getAttribute("midx") == null){
+	//로그인 후 다시 현재 페이지로 돌아오기 위해 saveUrl 생성하기 
+	session.setAttribute("saveUrl", request.getRequestURI());
+	
+	out.println("<script>alert('로그인해주세요');location.href='"+request.getContextPath()+"/member/memberLogin.do'</script>");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
