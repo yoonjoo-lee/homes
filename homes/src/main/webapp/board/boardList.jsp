@@ -18,8 +18,10 @@ PageMaker pm = (PageMaker)request.getAttribute("pm");
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 부트스트랩 아이콘 cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
 <header>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>
@@ -49,10 +51,7 @@ PageMaker pm = (PageMaker)request.getAttribute("pm");
 </table>
 </form>
 
-
-
-
-<table class="table table-hover">
+<table class="maintable">
 <thead>
 <tr>
 <th>bidx번호</th>
@@ -110,7 +109,21 @@ for (int i=pm.getStartPage(); i <= pm.getEndPage(); i++) {
 </section>
 <aside></aside>
 <footer></footer>
-
-
 </body>
+
+<script>
+//js 세션으로 컬러모드 값 받아와서 body, table 클래스 명 추가 
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	
+	if(mode=="dark"){
+		$(".maintable").attr("class","table table-dark table-hover");
+	}else{
+		$(".maintable").attr("class","table table-hover");
+	}
+	$('body').addClass(mode);
+} 
+window.onload = changecolor();
+
+</script>
 </html>

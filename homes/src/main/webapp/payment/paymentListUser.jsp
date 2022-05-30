@@ -16,6 +16,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 부트스트랩 아이콘 cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script>
 <%
 //0000-00-00 00:00:00 과 같은 형식으로 넘어오는 enterdate값을 각각 쪼개기
@@ -55,6 +56,7 @@ function paymentcount(){
 </script>
 </head>
 <body>
+
 <header>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>
@@ -67,7 +69,7 @@ function paymentcount(){
 </header>
 <section>
 <h2><%=pv.getMembername() %> 납부현황</h2>
-<table class="table table-striped table-hover">
+<table class="maintable">
 <tr>
 <td>보증금</td>
 <td><%=pv.getDeposit() %>원</td>
@@ -147,6 +149,19 @@ function payFn(){
 	}
 	
 }
+
+//js 세션으로 컬러모드 값 받아와서 body, table 클래스 명 추가 
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	
+	if(mode=="dark"){
+		$(".maintable").attr("class","table table-dark table-hover");
+	}else{
+		$(".maintable").attr("class","table table-hover");
+	}
+	$('body').addClass(mode);
+} 
+window.onload = changecolor();
 
 //const date1 = new Date("2021-09-01");
 //const date2 = new Date("2021-10-01");

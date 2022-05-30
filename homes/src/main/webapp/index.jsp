@@ -3,7 +3,7 @@
 
 <%@page import = "java.util.*" %>
 <%@page import = "homes.domain.*" %>
- <%
+<%
 ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
 %>
 
@@ -16,8 +16,6 @@ ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
 <!-- <link rel="stylesheet" href="css/basicstyle.css"> -->
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/css/basic.css" rel="stylesheet" />
-<!-- 다크모드 js -->
-<script src="${pageContext.request.contextPath}/js/dayandnight.js"></script>
 <!-- 부트스트랩 css CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 메인 클릭용 스타일 시트 -->
@@ -26,27 +24,30 @@ ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script>
+//js 세션으로 컬러모드 값 받아와서 body, table 클래스 명 추가 
+//table table-borderless table-hover
 function changebackground(){
-	
 	if($('body').attr('class')=='dark'){
     	$(".dark").attr("class","light");
+    	sessionStorage.setItem("colormode", "light");
+		$(".btncolormode").text("다크 모드로 보기"); 
 	}else{
 		$(".light").attr("class","dark");
+		sessionStorage.setItem("colormode", "dark");
+    	$(".btncolormode").text("라이트 모드로 보기"); 
 	}
+	console.log($(".btntest").text());
 	console.log($('body').attr('class'));
-	
-<%session.setAttribute("colormode","Dd");%> 
 };
-</script>
 
+</script>
 </head>
 
-
-<body class="dark">
+<body >
 
 <!-- 헤더부분 homes 클릭 시 메인 화면으로 이동 -->
 <header>
-<button onclick="changebackground();">배경색변경</button>
+
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0066ff" class="bi bi-house-heart" viewBox="0 0 16 16">
@@ -173,8 +174,21 @@ if (session.getAttribute("midx") != null){
 	out.println("<a href='"+ request.getContextPath() + "/member/memberLogout.do'>로그아웃</a><br>");*/
 %>
 <table class="table ">
-<tr><td colspan=2>
+<tr><td>
+
+<%if (session.getAttribute("userProfile")!=null){%>
+<img style = "border-radius:50%;" 
+src="<%=request.getContextPath()%>/img/<%=session.getAttribute("userProfile")%>"  width="40px" height="40px" />
+<%}else{ %>
+<img style = "border-radius:50%;"
+src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40px" />	
+<%} %>			
+
+
 <b><%=session.getAttribute("memberName")%>님</b>
+
+</td>
+<td>
 <input type="button" name="btn"  class="btn btn-secondary  btn-sm" value="로그아웃" onclick="location.href='<%= request.getContextPath() %>/member/memberLogout.do'">
 </td></tr>
 <tr><td colspan=2><%=session.getAttribute("memberEmail")%></td></tr>
@@ -187,9 +201,10 @@ if (session.getAttribute("midx") != null){
 }
 %> 
 </div>
+<button class="btncolormode" onclick="changebackground();"></button>
 </div>
-
-<input type="button" id="dnN" value="night" onclick="dayAndNight();">
+<!-- 
+<input type="button" id="dnN" value="night" onclick="dayAndNight();"> -->
 </section>
 <%-- <a href="<%=request.getContextPath()%>/member/memberJoin.do">회원가입</a> --%>
 <%-- <a href="<%=request.getContextPath()%>/member/memberLogin.do">로그인</a> --%>
@@ -199,8 +214,24 @@ if (session.getAttribute("midx") != null){
 <div class="footer_inner">
 </div>
 </footer>
-<script>
-
-</script>
 </body>
+
+
+<script>
+//js 세션으로 컬러모드 값 받아와서 class로 추가하기
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	$('body').addClass(mode);
+	if(mode=='dark'){
+		$(".btncolormode").text("라이트 모드로 보기"); 
+	}else{
+		$(".btncolormode").text("다크 모드로 보기"); 
+	}
+	if($('body').attr('class')==null){
+		$('body').addClass('light');
+		$(".btncolormode").text("다크 모드로 보기"); 
+	}
+} 
+window.onload = changecolor();
+</script>
 </html>

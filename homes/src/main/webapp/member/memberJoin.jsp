@@ -11,9 +11,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <!-- 부트스트랩 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<script>
+//js 세션으로 컬러모드 값 받아와서 class로 추가하기
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	$('body').addClass(mode);
+} 
+window.onload = changecolor();
+</script>
 <header>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>

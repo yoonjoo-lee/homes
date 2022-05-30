@@ -163,6 +163,7 @@ public class MemberDao {
 					pv.setRent(rs.getInt("rent"));
 					pv.setEnterdate(rs.getString("enterDate"));
 					pv.setMoney(rs.getInt("money"));
+					pv.setUserprofile(rs.getString("userProfile"));
 				}
 				
 			} catch (SQLException e) {
@@ -296,5 +297,31 @@ public class MemberDao {
 			return value;
 		}
 	 	
+	 	public int insertProfile(int midx, String fileName) {
+			int value = 0;
+			
+			String sql = "UPDATE home_member SET userProfile = ? where midx=?";
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, fileName);
+				pstmt.setInt(2, midx);
+				value = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
+			return value;
+		}
+
 	 	
 }

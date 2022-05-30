@@ -16,8 +16,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 부트스트랩 아이콘 cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
 <header>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>
@@ -32,10 +34,11 @@
 <section>
 <div id="left-section">
 <div id="main-form">
-<table class="table table-striped table-hover">
+<table class="maintable">
 <thead><tr><td><h4>프로필 변경</h4></td></tr></thead>
 <tbody>
 
+<tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberProfileUpload.do?midx=<%=mv.getMidx() %>'">프로필변경<td></tr>
 <tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangeId.do?midx=<%=mv.getMidx() %>'">아이디변경<td></tr>
 <tr><td onclick="location.href='<%=request.getContextPath()%>/member/memberChangePwd.do?midx=<%=mv.getMidx() %>'">비밀번호변경<td></tr>
 <tr><td onClick="outMemberFn()">회원탈퇴<td></tr>
@@ -52,7 +55,16 @@
 </div>
 <div id="right-section">
 <div id="myinfo">
-<table class="table table-sm">
+<table class="maintable2">
+<tr><td>
+<%if (mv.getUserprofile()!=null){%>
+<img style = "border-radius:50%;" 
+src="<%=request.getContextPath()%>/img/<%=mv.getUserprofile() %>"  width="40px" height="40px" />
+<%}else{ %>
+<img style = "border-radius:50%;"
+src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40px" />	
+<%} %>			
+<%=mv.getUserprofile() %><td></tr>
 <tr><td><%=mv.getMemberemail() %><td></tr>
 <tr><td><%=mv.getMembername() %><td></tr>
 <tr><td>아이디 <%=mv.getMemberid() %><td></tr>
@@ -103,7 +115,23 @@ function chargeFn(){
 	}
 	
 }
-</script>
 
+//js 세션으로 컬러모드 값 받아와서 body, table 클래스 명 추가 
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	
+	if(mode=="dark"){
+		$(".maintable").attr("class","table table-dark table-hover");
+		$(".maintable2").attr("class","table table-dark table-sm");
+	}else{
+		$(".maintable").attr("class","table table-hover");
+		$(".maintable2").attr("class","table table-sm");
+	}
+	$('body').addClass(mode);
+} 
+window.onload = changecolor();
+
+
+</script>
 </body>
 </html>

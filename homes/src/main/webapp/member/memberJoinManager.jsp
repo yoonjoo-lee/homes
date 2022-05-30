@@ -10,7 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 부트스트랩 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script>
 function check(){
 	var fm = document.frm;
@@ -65,9 +65,17 @@ function check(){
 	
 	return;
 }
+
 </script>
 </head>
 <body>
+<script>
+function changecolor(){
+	var mode =sessionStorage.getItem("colormode");
+	$('body').addClass(mode);
+} 
+window.onload = changecolor();
+</script>
 <header>
 <table>
 <tr onclick="location.href='<%=request.getContextPath() %>/main/index.do'"><td>

@@ -27,6 +27,7 @@ public class MemberVo{
 	private String memberjoindate;
 	private String manager;
 	private int paymentcount;
+	private String userprofile;
 	
 	public int getMidx() {
 		return midx;
@@ -153,6 +154,12 @@ public class MemberVo{
 	}
 	public void setPaymentcount(int paymentcount) {
 		this.paymentcount = paymentcount;
+	}
+	public String getUserprofile() {
+		return userprofile;
+	}
+	public void setUserprofile(String userprofile) {
+		this.userprofile = userprofile;
 	}
 	private String approval;
 	private String delyn;

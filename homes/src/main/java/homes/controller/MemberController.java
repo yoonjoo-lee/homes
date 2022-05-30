@@ -2,6 +2,7 @@ package homes.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import homes.service.BoardDao;
 import homes.service.MemberDao;
@@ -30,6 +34,9 @@ public class MemberController extends HttpServlet {
 		String pj = request.getContextPath();
 		String command = uri.substring(pj.length());
 		System.out.println("command:" + command);
+		
+
+		
 		if (command.equals("/member/memberJoinAction.do")) {
 			String memberName = request.getParameter("memberName");
 			String memberPhone = request.getParameter("memberPhone");
@@ -159,8 +166,8 @@ public class MemberController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/main.jsp");
 		} else if (command.equals("/member/memberMyPage.do")) {
 			String midx_ = request.getParameter("midx");
-			System.out.println("마이페이지에서 midx " + midx_);
 			int midx = Integer.parseInt(midx_);
+			System.out.println("마이페이지에서 midx " + midx);
 			
 			MemberDao md = new MemberDao();
 			MemberVo mv = md.memberSelectOne(midx);
@@ -257,6 +264,39 @@ public class MemberController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/member/memberMyPage.do?midx="+ midx);
 			}else{
 				response.sendRedirect(request.getContextPath()+"/index.jsp");
+			}
+		}else if (command.equals("/member/memberProfileUpload.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/member/memberProfileUpload.jsp");
+			rd.forward(request, response);
+		}else if (command.equals("/member/memberProfileUploadAction.do")) {
+			//여러곳에서 쓰니까 여기에 지정 (fileDownload.do랑 boardWriteAction.do에서 사용)
+			String uploadPath = "C:\\Users\\753\\git\\homes\\homes\\src\\main\\webapp\\";
+			String saveFolder = "img";
+			String saveFullPath = uploadPath + saveFolder;
+
+			int sizeLimit = 1024*1024*15;
+			MultipartRequest multi = null;
+			multi = new MultipartRequest(request, saveFullPath, sizeLimit,"utf-8", new DefaultFileRenamePolicy());
+			
+			//열거자에 저장될 파일을 담는 객체를 생성한다
+			Enumeration files = multi.getFileNames();
+			//담긴 파일의 객체의 파일 이름을 얻는다
+			String file = (String)files.nextElement();			
+			//저장되는 파일이름
+			String fileName = multi.getFilesystemName(file);
+			//원래 파일이름
+			String originFileName = multi.getOriginalFileName(file);
+			
+			HttpSession session = request.getSession();
+			int midx = (int)session.getAttribute("midx");
+			
+			MemberDao md = new MemberDao();
+			int value = md.insertProfile(midx, fileName);
+			
+			if(value == 1 ) {
+				response.sendRedirect(request.getContextPath() + "/member/memberMyPage.do?midx="+ midx);
+			}else {
+				response.sendRedirect(request.getContextPath() + "/main.do");
 			}
 		}
 		
