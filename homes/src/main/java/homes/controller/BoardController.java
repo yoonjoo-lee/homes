@@ -112,7 +112,6 @@ public class BoardController extends HttpServlet {
 			pm.setScri(scri);
 			pm.setTotalCount(cnt);
 			
-			
 			ArrayList<BoardVo> alist = bd.boardSelectAll(scri);
 			request.setAttribute("alist", alist);	//데이터(자원) 공유
 			request.setAttribute("pm", pm);

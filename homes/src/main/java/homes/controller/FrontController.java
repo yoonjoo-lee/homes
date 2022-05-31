@@ -32,6 +32,9 @@ public class FrontController extends HttpServlet {
 		}else if (location.equals("main")) {
 			MainController bc = new MainController();
 			bc.doGet(request, response);
+		}else if (location.equals("chat")) {
+			ChatController bc = new ChatController();
+			bc.doGet(request, response);
 		}
 	}
  

@@ -38,6 +38,8 @@ function changebackground(){
 	}
 	console.log($(".btntest").text());
 	console.log($('body').attr('class'));
+	
+	
 };
 
 </script>
@@ -167,6 +169,7 @@ if (session.getAttribute("midx") == null){
 %>
 <%
 if (session.getAttribute("midx") != null){
+	
 	/* out.println("회원 아이디 : " + session.getAttribute("memberId") + "<br>");
 	out.println("회원 이름 : "  + session.getAttribute("memberName") + "<br>");
 	out.println("midx : " + session.getAttribute("midx") + "<br>"); 
@@ -194,13 +197,15 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 <tr><td colspan=2><%=session.getAttribute("memberEmail")%></td></tr>
 <tr>
 <td><a href="<%=request.getContextPath()%>/member/memberMyPage.do?midx=<%=session.getAttribute("midx")%>">마이페이지</a></td>
-<td><a>알림</a></td>
+<td><a href="<%=request.getContextPath()%>/chat/chatPage.do">알림</a></td>
 </tr>
 </table>
 <%
 }
 %> 
 </div>
+</div>
+<div id="btncolormode-area">
 <button class="btncolormode" onclick="changebackground();"></button>
 </div>
 <!-- 
