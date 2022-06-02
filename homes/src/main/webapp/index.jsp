@@ -197,7 +197,7 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 <tr><td colspan=2><%=session.getAttribute("memberEmail")%></td></tr>
 <tr>
 <td><a href="<%=request.getContextPath()%>/member/memberMyPage.do?midx=<%=session.getAttribute("midx")%>">마이페이지</a></td>
-<td><a href="<%=request.getContextPath()%>/chat/chatPage.do">알림</a></td>
+<td><a href = "javascript:popupmessage()" >알림</a></td>
 </tr>
 </table>
 <%
@@ -223,6 +223,13 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 
 
 <script>
+function popupmessage(){
+	var url = "<%=request.getContextPath()%>/chat/chatPage.do";
+	var name = "message popup page";
+	var option = "width = 400, height = 600, top = 100, left = 200, location = no";
+	window.open(url,name, option);
+}
+
 //js 세션으로 컬러모드 값 받아와서 class로 추가하기
 function changecolor(){
 	var mode =sessionStorage.getItem("colormode");

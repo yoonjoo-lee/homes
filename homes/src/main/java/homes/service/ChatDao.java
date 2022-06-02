@@ -90,7 +90,7 @@ public class ChatDao {
     	ArrayList<ChatVo> chatList = new ArrayList<ChatVo>();
 		ResultSet rs = null;
 		
-		String sql ="SELECT * FROM home_chat where cidx > (SELECT MAX(cidx) - ? FROM home_chat) order by chattime";
+		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX where cidx > (SELECT MAX(cidx) - ? FROM home_chat) order by chattime";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -100,6 +100,7 @@ public class ChatDao {
 				ChatVo cv = new ChatVo();
 				cv.setCidx(rs.getInt("cidx"));	//rs에 복사된 bidx를 bv에 옮겨담는다
 				cv.setChatname(rs.getString("chatName"));
+				cv.setUserprofile(rs.getString("userProfile"));
 				cv.setChatcontent(rs.getString("chatContent").replace(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;").replaceAll("\n", "<br>"));
 				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
 				String timeType = "오전";
@@ -117,7 +118,7 @@ public class ChatDao {
 		} finally {
 			try {
 				pstmt.close();
-				rs.close();
+				/* rs.close(); */
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -130,7 +131,7 @@ public class ChatDao {
     	ArrayList<ChatVo> chatList = new ArrayList<ChatVo>();
 		ResultSet rs = null;
 		
-		String sql ="SELECT * FROM home_chat where cidx > ? order by chattime";
+		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX WHERE CIDX > ?  order by chattime";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -139,6 +140,7 @@ public class ChatDao {
 			while(rs.next()) {
 				ChatVo cv = new ChatVo();
 				cv.setCidx(rs.getInt("cidx"));	//rs에 복사된 bidx를 bv에 옮겨담는다
+				cv.setUserprofile(rs.getString("userProfile"));
 				cv.setChatname(rs.getString("chatName"));
 				cv.setChatcontent(rs.getString("chatContent").replace(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "gt;").replaceAll("\n", "<br>"));
 				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));

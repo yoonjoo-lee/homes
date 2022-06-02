@@ -22,11 +22,11 @@ public class ChatListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		
 		String listType = request.getParameter("listType");
-		
+		System.out.println("업데이트");
+		//System.out.println("listType"+listType);
 		if(listType==null || listType.equals("")) {
-			response.getWriter().write("");
+			response.getWriter().write("aaa");
 		} else if (listType.equals("today")) {
 			response.getWriter().write(getToday());
 		} else if (listType.equals("ten")) {
@@ -37,7 +37,7 @@ public class ChatListServlet extends HttpServlet {
 				Integer.parseInt(listType);
 				response.getWriter().write(getID(listType));
 			} catch(Exception e) {
-				response.getWriter().write("");
+				response.getWriter().write("ttt");
 			}
 		}
 	}
@@ -67,10 +67,11 @@ public class ChatListServlet extends HttpServlet {
 		result.append("{\"result\":[");
 		ChatDao cd = new ChatDao();
 		ArrayList<ChatVo> chatList = cd.getChatListByRecent(10);
-
+		
 		for(int i=0; i< chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
 			if(i != chatList.size()-1) {
 				result.append(",");
@@ -89,6 +90,7 @@ public class ChatListServlet extends HttpServlet {
 		for(int i=0; i< chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
 			if(i != chatList.size()-1) {
 				result.append(",");
@@ -97,6 +99,12 @@ public class ChatListServlet extends HttpServlet {
 		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getCidx() + "\"}");
 		return result.toString();
 	}
+	
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+	
 }
 
 

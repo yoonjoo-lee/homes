@@ -14,6 +14,7 @@ public class ChatVo {
 	private String chatname;
 	private String chatcontent;
 	private String chattime;
+	private String userprofile;
 	
 	public int getCidx() {
 		return cidx;
@@ -44,6 +45,12 @@ public class ChatVo {
 	}
 	public void setMidx(int midx) {
 		this.midx = midx;
+	}
+	public String getUserprofile() {
+		return userprofile;
+	}
+	public void setUserprofile(String userprofile) {
+		this.userprofile = userprofile;
 	}
 	private int midx;
 	

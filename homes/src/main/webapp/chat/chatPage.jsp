@@ -47,6 +47,7 @@ function autoClosingAlert(selector, delay){
 }
 
 function chatListFunction(type){
+	//alert(type);
 	$.ajax({
 		type: "POST",
 		url: "<%=request.getContextPath()%>/chatListServlet",
@@ -60,44 +61,54 @@ function chatListFunction(type){
 			var parsed = JSON.parse(data);
 			var result = parsed.result;
 			for(var i = 0; i < result.length; i++){
- 				addChat(result[i][0].value, result[i][1].value, result[i][2].value); 
+ 			//	alert(result[i][2].value);
+				addChat(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value); 
+ 				
 			}
 			lastCidx = Number(parsed.last);
 			/* alert(lastCidx); */
-			
 		}
 	});
 }
 
 
-function addChat(chatName, chatContent, chatTime){
-	$('#chatList').append('<div>' +
-			'<div>' +
-			'<div>' +
-			'<div>' +
-			'<b>' +
+function addChat(chatName, chatContent, userProfile, chatTime ){
+	if (userProfile!='null'){
+	var profile = '<img  style = "border-radius:50%;"  src='+"<%=request.getContextPath()%>/img/" + userProfile + ' width="40px" height="40px" />';
+	} else{
+	var profile = '<img style = "border-radius:50%;" src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40px" />';
+	} 
+	$('#chatList').append('<tr height="50">' +
+			'<td width="200">' +
+			profile +
+			'&nbsp;' +
+			chatContent +
+			'<br>' +
+			'<span id="chatname">' +
 			chatName +
+			'</span>' +
+			'</td>' +
+			'<td>' +
 			'<span id="chattime">' +
 			chatTime +
 			'</span>' +
-			'</b>' +
-			'<p>' +
-			chatContent +
-			'</p>' +
-			'</div>' +
-			'</div>' +
-			'</div>' +
-			'</div>' +
-			'<hr>' );
+			'</td>' +
+			'</tr>');
 	$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
 }
-
+<%-- <%if (session.getAttribute("userProfile")!=null){%>
+<img style = "border-radius:50%;" 
+src="<%=request.getContextPath()%>/img/<%=session.getAttribute("userProfile")%>"  width="40px" height="40px" />
+<%}else{ %>
+<img style = "border-radius:50%;"
+src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40px" />	
+<%} %> --%>
 
 	
 function getInfiniteChat(){
 	setInterval(function(){
 		chatListFunction(lastCidx);
-	}, 1000);
+	}, 500);
 }
 
 	
@@ -107,27 +118,56 @@ function getInfiniteChat(){
 <div id="chat" >
 	<h3>채팅</h3>
 	<!-- overflow-y : auto; 는 아래로 글이 늘어났을 때 자동적으로 늘어남을 의미한다. -->
-	<div id="chatList" style="overflow-y: auto; width: auto; height: 600px;">
-
+	
+	<div  style="overflow-y: auto; width: auto; height: 400px;">
+		<table  id="chatList"  class="maintable2">
+			<tr >
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
 	</div>
+	<table>
+		<tr>
+			<td>
+				<%if (session.getAttribute("userProfile")!=null){%>
+				<img style = "border-radius:50%;" 
+				src="<%=request.getContextPath()%>/img/<%=session.getAttribute("userProfile")%>"  width="40px" height="40px" />
+				<%}else{ %>
+				<img style = "border-radius:50%;"
+				src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40px" />	
+				<%} %>	
+				
+			</td>
+			<td><textarea style="height:80px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요" maxlength="100"></textarea></td>
+			<td><button type="button" onclick="submitFunction()">전송</button></td>
+		</tr>
+	</table>
+	<input type="hidden" id="chatName" value="<%=session.getAttribute("memberName")%>">
+	
+	<!-- <div id="chatList" style="overflow-y: auto; width: auto; height: 400px;">
+
+	</div> 
 	<div>
 		<div>
 			<div>
 				<input type="hidden" id="chatName" value="<%=session.getAttribute("memberName")%>">
 			</div>
 		</div>
-		<divstyle="height:90px">
+		<div style="height:90px">
 			<div>
 				<textarea style="height:80px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요" maxlength="100"></textarea>
+				<button type="button" onclick="submitFunction()">전송</button>
 			</div> 
 		</div>
-		<div>
-			<button type="button" onclick="submitFunction()">전송</button>
-		</div>
-	</div>
+	</div>-->
 </div>
 					
-	
+					
+					
+					
+					
+<%-- 	
 	<input type="hidden" id="chatName"  value="<%=session.getAttribute("memberName")%>">
 	<div class="alert alert-success" id="successMessage" style="display:none;">
 		<strong>메시지 전송에 성공하였습니다. </strong>
@@ -138,7 +178,7 @@ function getInfiniteChat(){
 	<div class="alert alert-success" id="warningMessage" style="display:none;">
 		<strong>데이터베이스 오류가 발생했습니다. </strong>
 	</div>
-
+ --%>
 
 
 <script>
