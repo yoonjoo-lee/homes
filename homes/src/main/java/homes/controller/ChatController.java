@@ -37,21 +37,32 @@ public class ChatController extends HttpServlet {
 			String chatName = request.getParameter("chatName");
 			String chatContent = request.getParameter("chatContent");
 			String midx_ = request.getParameter("midx");
+			String othermidx_ = request.getParameter("othermidx");
 			
 			System.out.println(chatName);
 			System.out.println(chatContent);
 			System.out.println(midx_);
 			
 			int midx = Integer.parseInt(midx_);
+			int othermidx = Integer.parseInt(othermidx_);
 			
 			ChatDao cd = new ChatDao();
-			int value = cd.chatSubmit(chatName, chatContent, midx);
+			int value = cd.chatSubmit(chatName, chatContent, midx, othermidx);
 			
 			if (value==1){
 				response.sendRedirect(request.getContextPath()+"/chat/chatPage.do?value");
 			}else{
 				response.sendRedirect(request.getContextPath()+"/main/index.do");
 			}
+		} else if (command.equals("/chat/chatIndividualPage.do")){
+			RequestDispatcher rd = request.getRequestDispatcher("/chat/chatIndividualPage.jsp");
+			rd.forward(request, response);
+		} else if (command.equals("/chat/chatContent.do")){
+//			String midx_ = request.getParameter("midx");
+//			int midx = Integer.parseInt(midx_);
+//			
+			RequestDispatcher rd = request.getRequestDispatcher("/chat/chatContent.jsp");
+			rd.forward(request, response);
 		} 
 //		else if (command.equals("/chat/chatListAction.do")) {
 //			String listType = request.getParameter("listType");

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import homes.domain.ChatVo;
 import homes.service.ChatDao;
@@ -31,6 +32,42 @@ public class ChatListServlet extends HttpServlet {
 			response.getWriter().write(getToday());
 		} else if (listType.equals("ten")) {
 			response.getWriter().write(getTen());
+		} else if (listType.equals("list")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			response.getWriter().write(getList(midx));
+			System.out.println("리스트");
+		} else if (listType.equals("recentlist")) {
+			String midx_ = request.getParameter("midx");
+			int midx = Integer.parseInt(midx_);
+			
+			String cidx_ = request.getParameter("cidx");
+			int cidx = Integer.parseInt(cidx_);
+			
+			response.getWriter().write(getRecentList(midx, cidx));
+			System.out.println("리스트");
+		} else if (listType.equals("twolist")) {
+			String myMidx_ = request.getParameter("myMidx");
+			int myMidx = Integer.parseInt(myMidx_);
+			
+			String chatMidx_ = request.getParameter("chatMidx");
+			int chatMidx = Integer.parseInt(chatMidx_);
+			
+			response.getWriter().write(twoChatList(myMidx, chatMidx));
+			System.out.println("리스트");
+		} else if (listType.equals("twolistrecent")) {
+			String myMidx_ = request.getParameter("myMidx");
+			int myMidx = Integer.parseInt(myMidx_);
+			
+			String chatMidx_ = request.getParameter("chatMidx");
+			int chatMidx = Integer.parseInt(chatMidx_);
+			
+			String cidx_ = request.getParameter("cidx");
+			int cidx = Integer.parseInt(cidx_);
+			
+			response.getWriter().write(twoChatListRecent(myMidx, chatMidx, cidx));
+			System.out.println("리스트");
 		}
 		else {
 			try {
@@ -72,6 +109,7 @@ public class ChatListServlet extends HttpServlet {
 			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			/* result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"},"); */
 			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
 			if(i != chatList.size()-1) {
 				result.append(",");
@@ -91,6 +129,7 @@ public class ChatListServlet extends HttpServlet {
 			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			/* result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"},"); */
 			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
 			if(i != chatList.size()-1) {
 				result.append(",");
@@ -101,9 +140,101 @@ public class ChatListServlet extends HttpServlet {
 	}
 	
 	
+	
+//  쪽지에서 본인 제외 리스트 출력
+	public String getList(int midx) {
+		
+		StringBuffer result = new StringBuffer("");
+		result.append("{\"result\":[");
+		ChatDao cd = new ChatDao();
+		ArrayList<ChatVo> chatList = cd.getChatListIndividual(midx);
+		
+		for(int i=0; i< chatList.size(); i++) {
+			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"}]");
+			if(i != chatList.size()-1) {
+				result.append(",");
+			}
+		}
+		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getCidx() + "\"}");
+		return result.toString();
+	}
+	
+	public String getRecentList(int midx, int cidx) {
+		
+		StringBuffer result = new StringBuffer("");
+		result.append("{\"result\":[");
+		ChatDao cd = new ChatDao();
+		ArrayList<ChatVo> chatList = cd.getChatListIndividualRecent(midx, cidx);
+		
+		for(int i=0; i< chatList.size(); i++) {
+			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"}]");
+			if(i != chatList.size()-1) {
+				result.append(",");
+			}
+		}
+		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getCidx() + "\"}");
+		return result.toString();
+	}
+	
+	public String twoChatList(int myMidx, int chatMidx) {
+		StringBuffer result = new StringBuffer("");
+		result.append("{\"result\":[");
+		ChatDao cd = new ChatDao();
+		ArrayList<ChatVo> chatList = cd.getTwoChatList(myMidx, chatMidx);
+		
+		for(int i=0; i< chatList.size(); i++) {
+			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			/* result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"},"); */
+			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
+			if(i != chatList.size()-1) {
+				result.append(",");
+			}
+		}
+		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getCidx() + "\"}");
+		return result.toString();
+	}
+	
+	
+	public String twoChatListRecent(int myMidx, int chatMidx, int cidx) {
+		StringBuffer result = new StringBuffer("");
+		result.append("{\"result\":[");
+		ChatDao cd = new ChatDao();
+		ArrayList<ChatVo> chatList = cd.twoChatListRecent(myMidx, chatMidx, cidx);
+		
+		for(int i=0; i< chatList.size(); i++) {
+			result.append("[{\"value\": \"" + chatList.get(i).getChatname() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatcontent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getUserprofile() + "\"},");
+			/* result.append("{\"value\": \"" + chatList.get(i).getMidx() + "\"},"); */
+			result.append("{\"value\": \"" + chatList.get(i).getChattime() + "\"}]");
+			if(i != chatList.size()-1) {
+				result.append(",");
+			}
+		}
+		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getCidx() + "\"}");
+		return result.toString();
+	}
+	
+	
+	
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
+		
+		
 	}
+	
 	
 }
 

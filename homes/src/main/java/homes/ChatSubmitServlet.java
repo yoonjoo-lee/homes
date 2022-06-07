@@ -16,19 +16,21 @@ public class ChatSubmitServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		
+		System.out.println("써브밋 서블릿");
 		String chatName = request.getParameter("chatName");
 		System.out.println(chatName);
 		String chatContent = request.getParameter("chatContent");
 		String midx_ = request.getParameter("midx");
 		int midx = Integer.parseInt(midx_);
+		String othermidx_ = request.getParameter("othermidx");
+		int othermidx = Integer.parseInt(othermidx_);
 		
 		ChatDao cd = new ChatDao();
 		
 		if(chatName == null || chatName.equals("") || chatContent == null || chatContent.equals("")) {
 			response.getWriter().write("0");
 		} else {
-			response.getWriter().write(cd.chatSubmit(chatName, chatContent, midx) + "");
+			response.getWriter().write(cd.chatSubmit(chatName, chatContent, midx, othermidx) + "");
 		}
 	
 	}

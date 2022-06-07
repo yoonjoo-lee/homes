@@ -177,7 +177,7 @@ if (session.getAttribute("midx") != null){
 	out.println("<a href='"+ request.getContextPath() + "/member/memberLogout.do'>로그아웃</a><br>");*/
 %>
 <table class="table ">
-<tr><td>
+<tr><td colspan=2>
 
 <%if (session.getAttribute("userProfile")!=null){%>
 <img style = "border-radius:50%;" 
@@ -194,10 +194,11 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 <td>
 <input type="button" name="btn"  class="btn btn-secondary  btn-sm" value="로그아웃" onclick="location.href='<%= request.getContextPath() %>/member/memberLogout.do'">
 </td></tr>
-<tr><td colspan=2><%=session.getAttribute("memberEmail")%></td></tr>
+<tr><td colspan=3><%=session.getAttribute("memberEmail")%></td></tr>
 <tr>
 <td><a href="<%=request.getContextPath()%>/member/memberMyPage.do?midx=<%=session.getAttribute("midx")%>">마이페이지</a></td>
-<td><a href = "javascript:popupmessage()" >알림</a></td>
+<td><a href = "javascript:individualMessage()" >쪽지</a></td>
+<td><a href = "javascript:groupMessage()" >단체메세지</a></td>
 </tr>
 </table>
 <%
@@ -223,7 +224,13 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 
 
 <script>
-function popupmessage(){
+function individualMessage(){
+	var url = "<%=request.getContextPath()%>/chat/chatIndividualPage.do";
+	var name = "message popup page";
+	var option = "width = 400, height = 600, top = 100, left = 200, location = no";
+	window.open(url,name, option);
+}
+function groupMessage(){
 	var url = "<%=request.getContextPath()%>/chat/chatPage.do";
 	var name = "message popup page";
 	var option = "width = 400, height = 600, top = 100, left = 200, location = no";
