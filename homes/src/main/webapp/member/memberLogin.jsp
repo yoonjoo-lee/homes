@@ -36,6 +36,13 @@ function check(){
 	
 	return;
 }
+
+function enterkey() {
+	if (window.event.keyCode == 13) {
+    	// 엔터키가 눌렸을 때
+    	check();
+    }
+}
 </script>
 </head>
 <body>
@@ -62,11 +69,11 @@ window.onload = changecolor();
 <div id="login-form">
 <div id="login-input-form">
 <div class="form-floating mb-3">
-  <input type="text" class="form-control" name="memberId" id="floatingInput" placeholder="아이디">
+  <input onkeyup="enterkey()"  type="text" class="form-control" name="memberId" id="floatingInput" placeholder="아이디">
   <label for="floatingInput">아이디</label>
 </div>
 <div class="form-floating">
-  <input type="password" class="form-control" name="memberPwd" id="floatingPassword" placeholder="비밀번호">
+  <input  onkeyup="enterkey()" type="password" class="form-control" name="memberPwd" id="floatingPassword" placeholder="비밀번호">
   <label for="floatingPassword">비밀번호</label>
 </div>
 </div>

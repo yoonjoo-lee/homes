@@ -66,6 +66,10 @@ public class ChatListServlet extends HttpServlet {
 			String cidx_ = request.getParameter("cidx");
 			int cidx = Integer.parseInt(cidx_);
 			
+			System.out.println(myMidx);
+			System.out.println(chatMidx);
+			System.out.println(cidx);
+			
 			response.getWriter().write(twoChatListRecent(myMidx, chatMidx, cidx));
 			System.out.println("리스트");
 		}

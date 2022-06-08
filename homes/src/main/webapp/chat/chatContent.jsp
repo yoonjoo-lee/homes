@@ -95,8 +95,7 @@ function chatListRecent(type){
 			var result = parsed.result;
 			for(var i = 0; i < result.length; i++){
  			//	alert(result[i][2].value);
-				addChat(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value, result[i][4].value ); 
- 				
+				addChat(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value); 
 			}
 			lastCidx = Number(parsed.last);
 			/* alert(lastCidx); */
@@ -138,8 +137,15 @@ function addChat(chatName, chatContent, userProfile, chatTime){
 
 function getInfiniteChat(){
 	setInterval(function(){
-		chatListFunction(lastCidx);
+		chatListRecent(lastCidx);
 	}, 1000);
+}
+
+function enterkey() {
+	if (window.event.keyCode == 13) {
+    	// 엔터키가 눌렸을 때
+    	submitFunction();
+    }
 }
 </script>
 </head>
@@ -164,7 +170,7 @@ function getInfiniteChat(){
 				<%} %>	
 				
 			</td>
-			<td><textarea style="height:60px; width:300px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요" maxlength="100" ></textarea></td>
+			<td><textarea style="height:60px; width:300px;" id="chatContent" class="form-control" placeholder="메시지를 입력하세요" maxlength="100"  onkeyup="enterkey()"></textarea></td>
 			<td><button type="button" class="btn btn-primary" onclick="submitFunction()">전송</button></td>
 		</tr>
 	</table>

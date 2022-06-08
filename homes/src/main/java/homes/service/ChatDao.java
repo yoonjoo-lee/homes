@@ -91,7 +91,7 @@ public class ChatDao {
     	ArrayList<ChatVo> chatList = new ArrayList<ChatVo>();
 		ResultSet rs = null;
 		
-		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX where cidx > (SELECT MAX(cidx) - ? FROM home_chat) order by chattime";
+		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX where cidx > (SELECT MAX(cidx) - ? FROM home_chat) AND a.othermidx = 0 order by chattime";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class ChatDao {
     	ArrayList<ChatVo> chatList = new ArrayList<ChatVo>();
 		ResultSet rs = null;
 		
-		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX WHERE CIDX > ?  order by chattime";
+		String sql ="SELECT a.*,b.userprofile FROM HOME_CHAT a JOIN HOME_MEMBER b ON a.MIDX = b.MIDX WHERE CIDX > ?  AND a.othermidx = 0 order by chattime";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
