@@ -112,7 +112,7 @@ String[] yeartoday = dayandtime[0].split("-");
 <tr>
 <td>
 <input type="button" name="btn" class="btn btn-primary mb-3" value="납부하기" onClick="payFn()">
-<input type="button" name="btn" class="btn btn-primary mb-3" value="연락하기">
+<!-- <input type="button" name="btn" class="btn btn-primary mb-3" value="연락하기"> -->
 </td>
 </tr>
 </table>

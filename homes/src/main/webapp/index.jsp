@@ -23,6 +23,12 @@ ArrayList<BoardVo> alist = (ArrayList<BoardVo>)request.getAttribute("alist");
 <!-- 부트스트랩 아이콘 cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+
+<!-- 카카오페이.jsp 생성? 
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+-->
+
 <script>
 //js 세션으로 컬러모드 값 받아와서 body, table 클래스 명 추가 
 //table table-borderless table-hover
@@ -41,6 +47,7 @@ function changebackground(){
 	
 	
 };
+
 
 </script>
 </head>
@@ -208,7 +215,30 @@ src="<%=request.getContextPath()%>/img/userProfile.jpg"  width="40px" height="40
 </div>
 <div id="btncolormode-area">
 <button class="btncolormode" onclick="changebackground();"></button>
+
+ 	
+    <img src="<%=request.getContextPath()%>/images/kakao_small.png" id="apibtn" alt="My Image">
+
 </div>
+<script>
+$(function(){
+	$('#apibtn').click(function(){
+		$.ajax({
+			//type: 'POST',
+			dataType: 'json', 
+			url:'<%=request.getContextPath()%>/kakao/kakaopayAction.do', 
+			success:function(data){
+				console.log(data);
+				var box = data.next_redirect_pc_url;
+				window.open(box); 
+			},
+			error:function(error){
+				alert(error);
+			}
+		});
+	});
+});
+</script>
 <!-- 
 <input type="button" id="dnN" value="night" onclick="dayAndNight();"> -->
 </section>
@@ -237,6 +267,9 @@ function groupMessage(){
 	window.open(url,name, option);
 }
 
+
+
+
 //js 세션으로 컬러모드 값 받아와서 class로 추가하기
 function changecolor(){
 	var mode =sessionStorage.getItem("colormode");
@@ -252,5 +285,7 @@ function changecolor(){
 	}
 } 
 window.onload = changecolor();
+
+
 </script>
 </html>

@@ -36,5 +36,8 @@
 	<servlet-name>ChatSubmitServlet</servlet-name>
 	<url-pattern>/chatSubmitServlet</url-pattern>
   </servlet-mapping>
+  
+  
+
 	
 </web-app>

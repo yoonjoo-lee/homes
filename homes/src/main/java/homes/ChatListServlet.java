@@ -1,6 +1,14 @@
 package homes;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,6 +80,8 @@ public class ChatListServlet extends HttpServlet {
 			
 			response.getWriter().write(twoChatListRecent(myMidx, chatMidx, cidx));
 			System.out.println("리스트");
+		} else if (listType.equals("kakao")) {
+			response.getWriter().write(kakaopayAction());
 		}
 		else {
 			try {
@@ -81,6 +91,51 @@ public class ChatListServlet extends HttpServlet {
 				response.getWriter().write("ttt");
 			}
 		}
+	}
+	
+	public String kakaopayAction() {
+		
+		System.out.println("챗리스트에서 카카오페이 들어옴");
+		
+		
+		try {
+			URL payurl = new URL("https://kapi.kakao.com/v1/payment/ready");
+			HttpURLConnection connect = (HttpURLConnection) payurl.openConnection();
+			connect.setRequestMethod("POST");
+			connect.setRequestProperty("Authorization", "KakaoAK 62c32a2bde2cd28d2495111b7cd169f7");
+			connect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			connect.setDoOutput(true);
+			String pram = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&vat_amount=200&tax_free_amount=0&approval_url=http://localhost:8090/homes/kakaopay/success.jsp&fail_url=http://localhost:8090/homes/main/index.do&cancel_url=http://localhost:8090/homes/main/index.do";
+			OutputStream outputstream = connect.getOutputStream(); 
+			DataOutputStream dataoutputstream = new DataOutputStream(outputstream);
+			dataoutputstream.writeBytes(pram);
+			dataoutputstream.close();
+			
+			int result = connect.getResponseCode();
+			System.out.println(result);
+			InputStream inputstream;
+			if(result==200) {
+				System.out.println("성공");
+				inputstream = connect.getInputStream();
+			}else {
+				System.out.println("에러");
+				inputstream = connect.getErrorStream();
+			}
+			InputStreamReader reader = new InputStreamReader(inputstream);
+			BufferedReader bufferedreader = new BufferedReader(reader);
+			System.out.println(bufferedreader.readLine());
+			//System.out.println(bufferedreader.toString());
+			
+			return bufferedreader.readLine();
+//			return "a";
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "{\"result\":\"NO\"}";
 	}
 	
 	public String getToday() {

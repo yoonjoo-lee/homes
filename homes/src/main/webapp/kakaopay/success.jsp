@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,21 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-
-
-<script type="text/javascript">
-location.href="<%=request.getContextPath() %>/main/index.do"
-
-
-
-
-
-
-
-
-</script>
+<h2>카카오페이 성공</h2>
 </body>
 </html>

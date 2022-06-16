@@ -32,6 +32,7 @@ function submitFunction(){
 		},
 		success: function (result){
 			if(result==1){
+				
 				autoClosingAlert('#successMessage', 2000);
 			}else if (result==0){
 				autoClosingAlert('#dangerMessage', 2000);
