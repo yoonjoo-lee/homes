@@ -1,4 +1,4 @@
-# sweetPea
+# homes
 <h1>임대인,임차인 납부관리 및 커뮤니티 WEB</h1>
 
 <h2>homes 소개</h2>
