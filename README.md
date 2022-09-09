@@ -2,7 +2,7 @@
 <h1>임대인,임차인 납부관리 및 커뮤니티</h1>
 
 <h2>homes 소개</h2>
-<p>&nbsp;임대인,임차인 납부관리 및 커뮤니티 WEB<br>
+<p>&nbsp;임대인,임차인 납부관리 및 커뮤니티입니다.<br>
 이웃 세대들 간에 커뮤니티를 제공하고, 월세 납부 현황을 제공함으로써 입주자와 집주인에게 편리성을 제공.<br></p>
 <a href="http://dbswn2414.cafe24.com/main/index.do">homes 홈페이지</a>
 
@@ -35,42 +35,20 @@
   <img src="https://img.shields.io/badge/Java-blue?style=flat&logo=Java&logoColor=white"/>
 </p>
 
-<h2>사용 라이브러리</h2>
-<li>JSTL</li>
-<li>Jquery</li>
-<li>Tagiry(해쉬태그)</li>
-<li>Sweet Alert2(알림창)</li>
-<p>
-  <img src="https://img.shields.io/badge/JSTL-red?style=flat&logo=JSTL&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Jquery-blue?style=flat&logo=Jquery&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Tagiry-green?style=flat&logo=Tagiry&logoColor=white"/>
-  <img src="https://img.shields.io/badge/SweetAlert2-skyblue?style=flat&logo=Sweet Alert2&logoColor=white"/>
-</p>
-
-<h2>사용 오픈소스</h2>
-<li>Summer Note(에디터)</li>
-<li>Cropper(사진 크기 조절)</li>
-<p>
-  <img src="https://img.shields.io/badge/SummerNote-blue?style=flat&logo=SummerNote&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Cropper-green?style=flat&logo=Cropper&logoColor=white"/>
-</p>
-
 <h2>사용한 API</h2>
-<li>다음 지도 API</li>
-<li>페이</li>
+<li>카카오 페이</li>
 <p>
-  <img src="https://img.shields.io/badge/Map-red?style=flat&logo=Map&logoColor=white"/>
   <img src="https://img.shields.io/badge/Pay-blue?style=flat&logo=Pay&logoColor=white"/>
 </p>
 
 <h2>개발 환경</h2>
-<li>스프링 프레임워크 4</li>
-<li>MVC 방식</li>
-<li>JDK 18</li>
+<li>이클립스</li>
+<li>JDK 1.8</li>
 <li>MySQL 8</li>
+<li>tomcat 8.5</li>
 <p>
-  <img src="https://img.shields.io/badge/Spring-green?style=flat&logo=Spring&logoColor=white"/>
-  <img src="https://img.shields.io/badge/MVC-yellow?style=flat&logo=MVC&logoColor=white"/>
+  <img src="https://img.shields.io/badge/eclipse-blue?style=flat&logo=Eclipse&logoColor=white"/>
   <img src="https://img.shields.io/badge/JDK-red?style=flat&logo=JDK&logoColor=white"/>
   <img src="https://img.shields.io/badge/MySQL-blue?style=flat&logo=MySQL&logoColor=white"/>
+  <img src="https://img.shields.io/badge/tomcat-green?style=flat&logo=Tomcat&logoColor=white"/>
 </p>
