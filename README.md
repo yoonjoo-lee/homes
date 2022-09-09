@@ -38,7 +38,7 @@
 <h2>사용한 API</h2>
 <li>카카오 페이</li>
 <p>
-  <img src="https://img.shields.io/badge/Kakao-Pay-blue?style=flat&logo=Kakao&logoColor=white"/>
+  <img src="https://img.shields.io/badge/KakaoPay-blue?style=flat&logo=Kakao&logoColor=white"/>
 </p>
 
 <h2>개발 환경</h2>
