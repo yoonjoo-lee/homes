@@ -38,7 +38,7 @@
 <h2>사용한 API</h2>
 <li>카카오 페이</li>
 <p>
-  <img src="https://img.shields.io/badge/Pay-blue?style=flat&logo=Pay&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Kakao-Pay-blue?style=flat&logo=Kakao&logoColor=white"/>
 </p>
 
 <h2>개발 환경</h2>
@@ -50,5 +50,5 @@
   <img src="https://img.shields.io/badge/eclipse-blue?style=flat&logo=Eclipse&logoColor=white"/>
   <img src="https://img.shields.io/badge/JDK-red?style=flat&logo=JDK&logoColor=white"/>
   <img src="https://img.shields.io/badge/MySQL-blue?style=flat&logo=MySQL&logoColor=white"/>
-  <img src="https://img.shields.io/badge/tomcat-green?style=flat&logo=Tomcat&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tomcat-green?style=flat&logo=Tomcat&logoColor=white"/>
 </p>
